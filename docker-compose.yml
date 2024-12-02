@@ -1,74 +1,73 @@
 services:
-    laravel.test:
-        build:
-            context: './vendor/laravel/sail/runtimes/8.4'
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: 'sail-8.4/app'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-        volumes:
-            - '.:/var/www/html'
-        networks:
-            - sail
-        depends_on:
-            - pgsql
-            - redis
-    pgsql:
-        image: 'postgres:17'
-        ports:
-            - '${FORWARD_DB_PORT:-5432}:5432'
-        environment:
-            PGPASSWORD: '${DB_PASSWORD:-secret}'
-            POSTGRES_DB: '${DB_DATABASE}'
-            POSTGRES_USER: '${DB_USERNAME}'
-            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
-        volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
-            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - pg_isready
-                - '-q'
-                - '-d'
-                - '${DB_DATABASE}'
-                - '-U'
-                - '${DB_USERNAME}'
-            retries: 3
-            timeout: 5s
-    redis:
-        image: 'redis:alpine'
-        ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
-        volumes:
-            - 'sail-redis:/data'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - redis-cli
-                - ping
-            retries: 3
-            timeout: 5s
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: crossfeed
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:8080"
+      - "443:8443"
+    environment:
+      IGNITION_LOCAL_SITES_PATH: "${PWD}"
+      DOTNET_EnableWriteXorExecute: 0
+      PHP_OPCACHE_ENABLE: 1
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 0
+      PHP_OPCACHE_REVALIDATE_FREQ: 0
+      PHP_OPCACHE_MAX_ACCELERATED_FILES: 32531
+      PHP_OPCACHE_INTERNED_STRINGS_BUFFER: 64
+      PHP_OPCACHE_MEMORY_CONSUMPTION: 512
+      PHP_FPM_POOL_NAME: "crossfeed_php"
+    #   SSL_MODE: "mixed"
+    #   SSL_PRIVATE_KEY_FILE: "/etc/ssl/private/sreportal.test-key.pem"
+    #   SSL_CERTIFICATE_FILE: "/etc/ssl/private/sreportal.test.pem"
+    volumes:
+      - ".:/var/www/html/"
+    #   - "./opt/certs/:/etc/ssl/private/"
+
+    networks:
+      - app
+    depends_on:
+      - vite
+      - pgsql
+
+  vite:
+    container_name: vite
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: crossfeed
+    environment:
+      NODE_ENV: local
+    working_dir: /var/www/html/
+    command: npm run dev
+    volumes:
+      - ".:/var/www/html/:cached"
+    ports:
+      - "5173:5173"
+    networks:
+      - app
+
+  pgsql:
+    container_name: pgsql
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: crossfeed
+    volumes:
+      - pgsql_data:/var/lib/pgsql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app
+
 networks:
-    sail:
-        driver: bridge
+  app:
+    driver: bridge
+
 volumes:
-    sail-pgsql:
-        driver: local
-    sail-redis:
-        driver: local
+  pgsql_data:
