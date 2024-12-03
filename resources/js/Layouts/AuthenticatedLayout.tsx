@@ -3,7 +3,8 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 
 export default function Authenticated({
     header,
@@ -13,6 +14,28 @@ export default function Authenticated({
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const [darkMode, setDarkMode] = useState(() => {
+        // Retrieve the dark mode preference from localStorage
+        if (localStorage.getItem('darkMode') !== null) {
+            return localStorage.getItem('darkMode') === 'true';
+        }
+        // Default to system preference if no preference is set
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    useEffect(() => {
+        // Apply or remove the dark class from the document body
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        // Save preference to localStorage
+        localStorage.setItem('darkMode', darkMode.toString());
+    }, [darkMode]);
+
+    const toggleDarkMode = () => setDarkMode((prevMode) => !prevMode);
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -37,6 +60,11 @@ export default function Authenticated({
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                        <button type="button" onClick={toggleDarkMode}
+                            className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
+                            {darkMode && <SunIcon className='size-6 text-gray-500'/>}
+                            {!darkMode && <MoonIcon className='size-6 text-gray-500'/>}
+                        </button>
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
