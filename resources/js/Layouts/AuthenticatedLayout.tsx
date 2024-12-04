@@ -60,11 +60,6 @@ export default function Authenticated({
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                        <button type="button" onClick={toggleDarkMode}
-                            className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
-                            {darkMode && <SunIcon className='size-6 text-gray-500'/>}
-                            {!darkMode && <MoonIcon className='size-6 text-gray-500'/>}
-                        </button>
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -107,6 +102,11 @@ export default function Authenticated({
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
+                            <button type="button" onClick={toggleDarkMode}
+                                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
+                                {darkMode && <SunIcon className='size-6 text-gray-500'/>}
+                                {!darkMode && <MoonIcon className='size-6 text-gray-500'/>}
+                            </button>
                         </div>
 
                         <div className="-me-2 flex items-center sm:hidden">
