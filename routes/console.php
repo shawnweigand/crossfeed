@@ -14,7 +14,7 @@ Artisan::command('spotify:token', function () {
     $response = Http::asForm()->withHeaders([
         'Authorization' => 'Basic ' . $auth
     ])->post($url, [
-        'grant_type' => 'client_credentials'
+        'grant_type' => 'client_credential'
     ]);
 
     if ($response->successful()) {
@@ -24,8 +24,10 @@ Artisan::command('spotify:token', function () {
         $this->comment("Access Token: $token");
     } else {
         // Handle the error
-        $this->comment("Error: " . $response->status());
-        print_r($response->json());
+        print_r([
+            'status' => $response->status(),
+            'message' => $response->json()
+        ]);
     }
 });
 
