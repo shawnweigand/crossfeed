@@ -25,3 +25,16 @@ Artisan::command('spotify:episode {term}', function (string $term) {
     $episodes = $spotify->episodes(($show['id']));
     $this->comment(json_encode($episodes['items']));
 });
+
+Artisan::command('youtube:search {term}', function (string $term) {
+    $base = config('services.youtube.base_url');
+    $endpoint = '/search';
+    $key = config('services.youtube.api_key');
+    $response = Http::withQueryParameters([
+        'key' => $key,
+        'part' => 'snippet,id',
+        'type' => 'channel',
+        'q' => $term,
+    ])->get($base . $endpoint);
+    $this->comment(json_encode($response->json()['items']));
+});
