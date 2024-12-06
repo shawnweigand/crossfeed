@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\SpotifyService;
+use App\Services\YouTubeService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
@@ -19,7 +20,7 @@ Artisan::command('spotify:search {term}', function (string $term) {
     $this->comment(json_encode($spotify->search($term)));
 });
 
-Artisan::command('spotify:episode {term}', function (string $term) {
+Artisan::command('spotify:episodes {term}', function (string $term) {
     $spotify = new SpotifyService();
     $show = $spotify->search($term)['shows']['items'][0];
     $episodes = $spotify->episodes(($show['id']));
@@ -27,14 +28,13 @@ Artisan::command('spotify:episode {term}', function (string $term) {
 });
 
 Artisan::command('youtube:search {term}', function (string $term) {
-    $base = config('services.youtube.base_url');
-    $endpoint = '/search';
-    $key = config('services.youtube.api_key');
-    $response = Http::withQueryParameters([
-        'key' => $key,
-        'part' => 'snippet,id',
-        'type' => 'channel',
-        'q' => $term,
-    ])->get($base . $endpoint);
-    $this->comment(json_encode($response->json()['items']));
+    $youtube = new YouTubeService();
+    $this->comment(json_encode($youtube->search($term)));
+});
+
+Artisan::command('youtube:videos {term}', function (string $term) {
+    $youtube = new YouTubeService();
+    $channel = $youtube->search($term)['items'][0];
+    $videos = $youtube->videos($channel['id']['channelId']);
+    $this->comment(json_encode($videos['items']));
 });
