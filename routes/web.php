@@ -1,6 +1,7 @@
 <?php
 
 use App\Data\FeedData;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,9 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::resource('feed', FeedController::class)
+    ->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [

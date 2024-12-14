@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FeedController extends Controller
 {
@@ -27,7 +29,15 @@ class FeedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|unique:feeds|max:255',
+        ]);
+
+        Feed::create([
+            'name' => $request->name,
+            'user_id' => Auth::user()->id,
+            'selected' => false
+        ]);
     }
 
     /**
