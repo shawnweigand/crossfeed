@@ -10,6 +10,7 @@ class Feed extends Model
     protected $fillable = [
         'name',
         'user_id',
+        'selected',
     ];
 
     public function user(): BelongsTo
