@@ -13,7 +13,7 @@ export default function FeedBar({feeds}: Props) {
 
     let [ selectedFeed, setSelectedFeed ] = useState(feeds.filter(feed => feed.selected === true)[0] || null)
     let [ editFeed, setEditFeed ] = useState(null)
-    let [ dialogOpen, setDialogOpen ] = useState(true)
+    let [ dialogOpen, setDialogOpen ] = useState(false)
     let [ mode, setMode ] = useState('Add') // Add or Edit
 
     const closeDialog = () => setDialogOpen(false)
