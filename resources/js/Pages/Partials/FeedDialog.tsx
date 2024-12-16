@@ -2,7 +2,7 @@ import Sidebar from '@/Components/Sidebar';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
-import { Button, Description, Dialog, DialogPanel, DialogTitle, Field, Input, Label } from '@headlessui/react'
+import { Button, Description, Dialog, DialogPanel, Field, Input, Label } from '@headlessui/react'
 import { useForm } from '@inertiajs/react'
 import clsx from 'clsx'
 
@@ -34,6 +34,24 @@ export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
         }
     }
 
+    const people = [
+        { id: 1, name: 'Tom Cook' },
+        { id: 2, name: 'Wade Cooper' },
+        { id: 3, name: 'Tanya Fox' },
+        { id: 4, name: 'Arlene Mccoy' },
+        { id: 5, name: 'Devon Webb' },
+    ]
+
+    const [query, setQuery] = useState('')
+    const [selected, setSelected] = useState(people[1])
+
+    const filteredPeople =
+    query === ''
+        ? people
+        : people.filter((person) => {
+            return person.name.toLowerCase().includes(query.toLowerCase())
+        })
+
     return (
         // <form onSubmit={submit}>
         // <input type="text" value={data.email} onChange={e => setData('email', e.target.value)} />
@@ -50,10 +68,9 @@ export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
               transition
               className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
             >
-                <DialogTitle as="h3" className="text-base/7 font-medium text-white mb-4">
-                    {mode} Feed {feed && <p>: {feed.name}</p>}
-                </DialogTitle>
                 <form onSubmit={submit}>
+
+                {/* Name */}
                 <Field>
                     <Label className="text-sm/6 font-medium text-white">Name</Label>
                     <Description className="text-sm/6 text-white/50">Give this feed a name.</Description>
@@ -66,12 +83,14 @@ export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
                     />
                     {errors.name && <div className='text-red-500 p-1 text-sm'>{errors.name}</div>}
                 </Field>
-                <div className="mt-4">
+
+                {/* Submit */}
+                <div className="mt-8">
                     <Button
                     className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                     type="submit"
                     >
-                    Got it, thanks!
+                        {mode} Feed
                     </Button>
                 </div>
                 </form>
