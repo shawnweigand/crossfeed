@@ -15,7 +15,6 @@ export default function FeedBar({feeds}: Props) {
     let [ selectedFeed, setSelectedFeed ] = useState(feeds.filter(feed => feed.selected === true)[0] || null)
     let [ editFeed, setEditFeed ] = useState(null)
     let [ dialogOpen, setDialogOpen ] = useState(false)
-    let [ mode, setMode ] = useState('Add') // Add or Edit
 
     const closeDialog = () => setDialogOpen(false)
     const openDialong = () => setDialogOpen(true)
@@ -44,7 +43,7 @@ export default function FeedBar({feeds}: Props) {
                     {/* Other feeds */}
                     {feeds.map(feed => (
                         !feed.selected &&
-                        <div className='relative group rounded overflow-hidden'>
+                        <div key={feed.id} className='relative group rounded overflow-hidden'>
                             <div className="absolute inset-0 group-hover:bg-gray-200/50 group-hover:dark:bg-gray-700/50 group-hover:backdrop-blur-sm group-hover:bg-opacity-50 transition-all duration-200 z-10" />
                             <div className="flex flex-col p-6 items-center relative" >
                                 <img
@@ -61,7 +60,7 @@ export default function FeedBar({feeds}: Props) {
                     ))}
 
                     {/* Add feed */}
-                    <Button onClick={() => {setEditFeed(null); openDialong(); setMode('Add')}} className="flex flex-col p-6 items-center hover:bg-gray-200 dark:hover:bg-gray-700 rounded rounded" >
+                    <Button onClick={() => {setEditFeed(null); openDialong()}} className="flex flex-col p-6 items-center hover:bg-gray-200 dark:hover:bg-gray-700 rounded rounded" >
                         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-600 rounded-full mx-auto mb-2 flex items-center justify-center">
                             <p className='text-3xl text-gray-400'>+</p>
                         </div>
@@ -69,7 +68,7 @@ export default function FeedBar({feeds}: Props) {
                     </Button>
 
                     {/* Add/edit feed dialog */}
-                    <FeedDialog isOpen={dialogOpen} closeDialog={closeDialog} feed={editFeed} mode={mode} />
+                    <FeedDialog isOpen={dialogOpen} closeDialog={closeDialog} feed={editFeed} />
 
                 </div>
             </div>

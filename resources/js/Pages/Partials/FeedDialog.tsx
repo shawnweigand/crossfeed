@@ -10,10 +10,9 @@ interface Props {
     isOpen: boolean
     closeDialog: () => void
     feed?: App.Data.FeedData | null
-    mode: string
 }
 
-export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
+export default function FeedDialog({isOpen, closeDialog, feed}: Props) {
 
     const { data, setData, post, processing, errors, clearErrors, reset } = useForm({
         name: feed?.name || '',
@@ -21,46 +20,16 @@ export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
 
     function submit(e: FormEvent) {
         e.preventDefault()
-        console.log(data)
-        if (mode == 'Add') {
-            console.log(mode)
-            post(route('feed.store'), {
-                onSuccess: () => {
-                    reset()
-                    clearErrors()
-                    closeDialog()
-                }
-            })
-        }
+        post(route('feed.store'), {
+            onSuccess: () => {
+                reset()
+                clearErrors()
+                closeDialog()
+            }
+        })
     }
 
-    const people = [
-        { id: 1, name: 'Tom Cook' },
-        { id: 2, name: 'Wade Cooper' },
-        { id: 3, name: 'Tanya Fox' },
-        { id: 4, name: 'Arlene Mccoy' },
-        { id: 5, name: 'Devon Webb' },
-    ]
-
-    const [query, setQuery] = useState('')
-    const [selected, setSelected] = useState(people[1])
-
-    const filteredPeople =
-    query === ''
-        ? people
-        : people.filter((person) => {
-            return person.name.toLowerCase().includes(query.toLowerCase())
-        })
-
     return (
-        // <form onSubmit={submit}>
-        // <input type="text" value={data.email} onChange={e => setData('email', e.target.value)} />
-        // {errors.email && <div>{errors.email}</div>}
-        // <input type="password" value={data.password} onChange={e => setData('password', e.target.value)} />
-        // {errors.password && <div>{errors.password}</div>}
-        // <input type="checkbox" checked={data.remember} onChange={e => setData('remember', e.target.checked)} /> Remember Me
-        // <button type="submit" disabled={processing}>Login</button>
-        // </form>
         <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={() => {closeDialog(); reset(); clearErrors()}}>
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
@@ -90,7 +59,7 @@ export default function FeedDialog({isOpen, closeDialog, feed, mode}: Props) {
                     className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                     type="submit"
                     >
-                        {mode} Feed
+                        Add Feed
                     </Button>
                 </div>
                 </form>
