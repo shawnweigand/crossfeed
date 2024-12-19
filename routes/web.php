@@ -2,6 +2,7 @@
 
 use App\Data\FeedData;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\Invokeable\SelectFeedController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ Route::resource('feed', FeedController::class)
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
-        'feeds' => FeedData::collect(Auth::user()->feeds)
+        'feeds' => fn () => FeedData::collect(Auth::user()->feeds)
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -31,5 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+######## Invokable ########
+Route::post('select', SelectFeedController::class)->name('select');
 
 require __DIR__.'/auth.php';

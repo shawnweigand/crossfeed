@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feed;
+use App\Rules\LessThanFiveFeeds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,7 @@ class FeedController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|unique:feeds|max:255',
+            'name' => [ 'required', 'string', 'unique:feeds', 'max:255', new LessThanFiveFeeds ],
         ]);
 
         Feed::create([

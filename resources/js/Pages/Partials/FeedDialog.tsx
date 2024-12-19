@@ -9,13 +9,12 @@ import clsx from 'clsx'
 interface Props {
     isOpen: boolean
     closeDialog: () => void
-    feed?: App.Data.FeedData | null
 }
 
-export default function FeedDialog({isOpen, closeDialog, feed}: Props) {
+export default function FeedDialog({isOpen, closeDialog}: Props) {
 
     const { data, setData, post, processing, errors, clearErrors, reset } = useForm({
-        name: feed?.name || '',
+        name: '',
     })
 
     function submit(e: FormEvent) {
