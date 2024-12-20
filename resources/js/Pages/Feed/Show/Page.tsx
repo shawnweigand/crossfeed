@@ -20,7 +20,7 @@ export default function Dashboard({feed}: Props) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <Link href={route('dashboard')} className='hover:underline underline-offset-4 mb-4 inline-flex gap-2 items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none text-gray-500 hover:text-gray-700 focus:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-300'>
+                    <Link href={route('dashboard')} className='hover:underline underline-offset-4 mb-4 inline-flex gap-2 items-center px-1 pt-1 text-md font-medium leading-5 transition duration-150 ease-in-out focus:outline-none text-gray-500 hover:text-gray-700 focus:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-300'>
                         <ChevronLeftIcon className='h-5 w-5'/>
                         <p>Back to Dashboard</p>
                     </Link>

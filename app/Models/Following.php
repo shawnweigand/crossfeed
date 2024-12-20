@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Follow extends Model
+class Following extends Model
 {
     protected $fillable = [
         'feed_id',
