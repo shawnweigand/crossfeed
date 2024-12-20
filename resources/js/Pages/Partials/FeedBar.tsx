@@ -65,7 +65,7 @@ export default function FeedBar({feeds}: Props) {
                             </div>
                             <div className="flex flex-col gap-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 py-1 text-sm text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
                                 <button className='bg-gray-900 hover:bg-gray-600 px-4 py-2 rounded-lg' onClick={() => selectFeed(feed)}>Select</button>
-                                <button className='bg-gray-900 hover:bg-gray-600 px-4 py-2 rounded-lg' onClick={() => console.log('')}>Edit</button>
+                                <Link as="button" className='bg-gray-900 hover:bg-gray-600 px-4 py-2 rounded-lg' method="get" href={route('feed.show', { feed: feed.id })}>Edit</Link>
                             </div>
                         </div>
                     }
