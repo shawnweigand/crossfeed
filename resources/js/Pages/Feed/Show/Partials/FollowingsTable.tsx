@@ -14,7 +14,7 @@ const people = [
     {
         name: 'Youtube dog highlights',
         email: 'short description...',
-        role: 'Business Relations',
+        role: 'YouTube',
         imageUrl:
           'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
         lastSeen: null,
@@ -22,7 +22,7 @@ const people = [
     {
         name: 'Spotify podcast about dogs',
         email: 'short description...',
-        role: 'Business Relations',
+        role: 'Spotify',
         imageUrl:
           'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
         lastSeen: null,
@@ -30,7 +30,7 @@ const people = [
     {
       name: 'Other medium...',
       email: 'short description...',
-      role: 'Business Relations',
+      role: 'Other',
       imageUrl:
         'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
       lastSeen: null,
@@ -52,20 +52,18 @@ export default function FollowingsTable({}: Props) {
                     <p className="mt-1 truncate text-xs/5 text-gray-500">{person.email}</p>
                     </div>
                 </div>
-                <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <p className="text-sm/6 text-gray-900">{person.role}</p>
-                    {person.lastSeen ? (
-                    <p className="mt-1 text-xs/5 text-gray-500">
-                        Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
-                    </p>
-                    ) : (
-                    <div className="mt-1 flex items-center gap-x-1.5">
+                <div className='flex gap-12'>
+                    <div className="hidden shrink-0 md:flex md:items-center gap-2">
                         <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                        <div className="size-1.5 rounded-full bg-emerald-500" />
+                            <div className="size-1.5 rounded-full bg-emerald-500" />
                         </div>
-                        <p className="text-xs/5 text-gray-500">Online</p>
+                        <p className="text-sm/6 text-gray-900">{person.role}</p>
                     </div>
-                    )}
+                    <div className='flex w-full items-center justify-center'>
+                        <button className='flex items-center justify-center bg-red-100 w-20 h-8 p-2 rounded'>
+                            <p className='text-sm'>Unfollow</p>
+                        </button>
+                    </div>
                 </div>
                 </li>
             ))}

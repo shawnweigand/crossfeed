@@ -48,7 +48,7 @@ export default function Dashboard({feed}: Props) {
                                 <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">{feed.name}</p>
                             </div>
                             <div className='w-full place-self-start items-center'>
-                                <button className='flex gap-1 items-center place-self-end p-2 pr-4 bg-red-300 hover:bg-red-200 rounded mt-4 mr-4'>
+                                <button className='flex gap-1 items-center place-self-end p-2 pr-4 bg-red-200 hover:bg-red-300 rounded mt-4 mr-4'>
                                     <TrashIcon className='text-red-500 h-6 w-6'/>
                                     <p className='text-red-600'>Delete</p>
                                 </button>
