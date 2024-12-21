@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { ChevronLeftIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Head, Link } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 
 interface Props {
     feed: App.Data.FeedData
@@ -48,12 +49,31 @@ export default function Dashboard({feed}: Props) {
                                 <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">{feed.name}</p>
                             </div>
                             <div className='w-full place-self-start items-center'>
-                                <button className='flex gap-1 items-center place-self-end p-2 pr-4 bg-red-200 hover:bg-red-300 rounded mt-4 mr-4'>
-                                    <TrashIcon className='text-red-500 h-6 w-6'/>
-                                    <p className='text-red-600'>Delete</p>
-                                </button>
+                                <Disclosure>
+                                    {({ open }) => (
+                                        <>
+                                            <DisclosureButton className='flex gap-1 items-center place-self-end p-2 pr-4 bg-red-200 hover:bg-red-300 rounded mt-4 mr-4'>
+                                                <TrashIcon className='text-red-500 h-6 w-6'/>
+                                                <p className='text-red-600'>Delete</p>
+                                            </DisclosureButton>
+                                            <DisclosurePanel className="mt-4 rounded-md text-sm bg-red-200 px-4 py-2">
+                                                <div className='p-4 flex flex-col gap-3'>
+                                                    <p className='text-center text-md'>Are you sure you'd like to delete this feed?</p>
+                                                    <p className='text-center italic text-red-500'>This action cannot be undone.</p>
+                                                    <Link
+                                                        as='button'
+                                                        href='#'
+                                                        className='hover:bg-red-500 place-self-center block w-1/4 bg-red-100 rounded py-2'
+                                                    >
+                                                        Delete
+                                                    </Link>
+                                                </div>
+                                            </DisclosurePanel>
+                                        </>
+                                    )}
+                                </Disclosure>
                             </div>
-                        </div>
+                       </div>
                         <div className='place-self-center mb-6 w-3/4'>
                             <FollowingsTable />
                         </div>

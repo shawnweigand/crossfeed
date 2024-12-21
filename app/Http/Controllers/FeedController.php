@@ -73,6 +73,7 @@ class FeedController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Feed::find($id)->destroy();
+        return redirect(route('dashboard'));
     }
 }
