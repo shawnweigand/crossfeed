@@ -13,27 +13,27 @@ interface Props {
 const people = [
     {
         name: 'Youtube dog highlights',
-        email: 'short description...',
+        desc: 'short description...',
         id: 1,
-        role: 'YouTube',
+        type: 'YouTube',
         imageUrl:
           'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
         lastSeen: null,
     },
     {
         name: 'Spotify podcast about dogs',
-        email: 'short description...',
+        desc: 'short description...',
         id: 2,
-        role: 'Spotify',
+        type: 'Spotify',
         imageUrl:
           'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
         lastSeen: null,
     },
     {
       name: 'Other medium...',
-      email: 'short description...',
+      desc: 'short description...',
       id: 3,
-      role: 'Other',
+      type: 'Other',
       imageUrl:
         'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
       lastSeen: null,
@@ -52,7 +52,7 @@ export default function FollowingsTable({}: Props) {
                     <img alt="" src={person.imageUrl} className="size-12 flex-none rounded-full bg-gray-50" />
                     <div className="min-w-0 flex-auto">
                     <p className="text-sm/6 font-semibold text-gray-900">{person.name}</p>
-                    <p className="mt-1 truncate text-xs/5 text-gray-500">{person.email}</p>
+                    <p className="mt-1 truncate text-xs/5 text-gray-500">{person.desc}</p>
                     </div>
                 </div>
                 <div className='flex gap-12'>
@@ -60,7 +60,7 @@ export default function FollowingsTable({}: Props) {
                         <div className="flex-none rounded-full bg-emerald-500/20 p-1">
                             <div className="size-1.5 rounded-full bg-emerald-500" />
                         </div>
-                        <p className="text-sm/6 text-gray-900">{person.role}</p>
+                        <p className="text-sm/6 text-gray-900">{person.type}</p>
                     </div>
                     <div className='flex w-full items-center justify-center'>
                         <button className='flex items-center justify-center bg-red-100 w-20 h-8 p-2 rounded'>
