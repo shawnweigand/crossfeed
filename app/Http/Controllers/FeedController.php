@@ -78,7 +78,13 @@ class FeedController extends Controller
      */
     public function destroy(string $id)
     {
-        Feed::find($id)->destroy();
-        return redirect(route('dashboard'));
+        $feed = Feed::find($id);
+
+        if ($feed->user_id !== Auth::user()->id) {
+            abort(403); // Prevent unauthorized deletions
+        }
+
+        $feed->delete();
+        return redirect()->route('dashboard')->with('success', 'Feed deleted successfully.');
     }
 }

@@ -62,7 +62,8 @@ export default function Dashboard({feed}: Props) {
                                                     <p className='text-center italic text-red-500'>This action cannot be undone.</p>
                                                     <Link
                                                         as='button'
-                                                        href='#'
+                                                        href={route('feed.destroy', { id: feed.id })}
+                                                        method="delete"
                                                         className='hover:bg-red-500 place-self-center block w-1/4 bg-red-100 rounded py-2'
                                                     >
                                                         Delete
