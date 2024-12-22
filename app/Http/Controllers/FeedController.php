@@ -6,6 +6,7 @@ use App\Models\Feed;
 use App\Rules\LessThanFiveFeeds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class FeedController extends Controller
@@ -32,7 +33,11 @@ class FeedController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => [ 'required', 'string', 'unique:feeds', 'max:255', new LessThanFiveFeeds ],
+            'name' => [ 'required', 'string', 'max:255', new LessThanFiveFeeds,
+                Rule::unique('feeds')->where(function ($query) use ($request) {
+                    return $query->where('user_id', $request->user()->id);
+                })
+            ],
         ]);
 
         Feed::create([
