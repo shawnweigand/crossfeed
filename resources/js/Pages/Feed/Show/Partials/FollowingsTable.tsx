@@ -57,13 +57,11 @@ export default function FollowingsTable({}: Props) {
                 </div>
                 <div className='flex gap-12'>
                     <div className="hidden shrink-0 md:flex md:items-center gap-2">
-                        <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                            <div className="size-1.5 rounded-full bg-emerald-500" />
-                        </div>
+                        <img alt="" src={`/images/${person.type}.png`} className="w-10 h-auto flex-none bg-gray-50" />
                         <p className="text-sm/6 text-gray-900">{person.type}</p>
                     </div>
                     <div className='flex w-full items-center justify-center'>
-                        <button className='flex items-center justify-center bg-red-100 w-20 h-8 p-2 rounded'>
+                        <button className='flex items-center justify-center bg-white hover:bg-gray-50 w-20 h-8 p-2 rounded'>
                             <p className='text-sm'>Unfollow</p>
                         </button>
                     </div>
