@@ -34,17 +34,17 @@ export default function FeedDialog({isOpen, closeDialog}: Props) {
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
-              className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className="w-full max-w-md rounded-xl bg-white/80 dark:bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
             >
                 <form onSubmit={submit}>
 
                 {/* Name */}
                 <Field>
-                    <Label className="text-sm/6 font-medium text-white">Name</Label>
-                    <Description className="text-sm/6 text-white/50">Give this feed a name.</Description>
+                    <Label className="text-sm/6 font-medium dark:text-white text-black">Name</Label>
+                    <Description className="text-sm/6 dark:text-white/50 text-gray-400">Give this feed a name.</Description>
                     <Input
                     className={clsx(
-                        'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
+                        'mt-3 block w-full rounded-lg border-none bg-gray-100 dark:bg-white/5 py-1.5 px-3 text-sm/6 text-black dark:text-white',
                         'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
                     )}
                     value={data.name} onChange={e => setData('name', e.target.value)}
