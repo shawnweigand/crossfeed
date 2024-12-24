@@ -24,7 +24,8 @@ export default function FeedDialog({isOpen, closeDialog}: Props) {
                 reset()
                 clearErrors()
                 closeDialog()
-            }
+            },
+            preserveScroll: true
         })
     }
 

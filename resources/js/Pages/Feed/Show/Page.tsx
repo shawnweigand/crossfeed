@@ -1,14 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { ChevronLeftIcon, ChevronRightIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Head, Link } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import SearchChannelDialog from './Partials/SearchChannelDialog';
+import { useState } from 'react';
 
 interface Props {
     feed: App.Data.FeedData
 }
 
 export default function Dashboard({feed}: Props) {
+
+    const [ isOpen, setIsOpen ] = useState(false)
+    const closeDialog = () => setIsOpen(false)
+    const openDialog = () => setIsOpen(true)
 
     return (
         <AuthenticatedLayout
@@ -19,6 +25,8 @@ export default function Dashboard({feed}: Props) {
             // }
         >
             <Head title="Feed" />
+
+            <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog}/>
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -74,7 +82,15 @@ export default function Dashboard({feed}: Props) {
                                     )}
                                 </Disclosure>
                             </div>
-                       </div>
+                        </div>
+                        <div className='place-self-center mb-6 w-1/2'>
+                            <div className='p-6 rounded-lg bg-gray-100 dark:bg-gray-900'>
+                                <button onClick={openDialog} className="flex gap-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                                    <MagnifyingGlassIcon className="w-5 h-5" />
+                                    <p>Search all channels...</p>
+                                </button>
+                            </div>
+                        </div>
                         <div className='place-self-center mb-6 w-3/4'>
                             <FollowingsTable />
                         </div>
