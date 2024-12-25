@@ -2,6 +2,7 @@
 
 use App\Data\FeedData;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\Invokeable\SearchChannelsController;
 use App\Http\Controllers\Invokeable\SelectFeedController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 ######## Invokable ########
-Route::post('select', SelectFeedController::class)->name('select');
+Route::post('select', SelectFeedController::class)->name('select')->middleware(['auth', 'verified']);
+Route::get('channels', SearchChannelsController::class)->name('channels')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
