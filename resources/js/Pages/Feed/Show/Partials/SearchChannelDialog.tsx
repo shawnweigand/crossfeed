@@ -10,6 +10,8 @@ interface Props {
 
 export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
 
+    const [ searching, setSearching ] = useState(false)
+    const [ error, setError ] = useState()
     const [ search, setSearch ] = useState('')
     const [ results, setResults ] = useState([])
 
@@ -20,12 +22,15 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
         const url = new URL(route('channels'));
         url.searchParams.append('search', search);
 
+        setSearching(true)
+        console.log(searching)
         fetch(url.toString())
             .then((res) => res.json())
             .then((data) => {
                 console.log('Channels:', data.channels); // Access your channels
             })
-            .catch((err) => console.error('Error:', err));
+            .catch((err) => {console.log(`${err}`); setError(err)})
+            .finally(() => setSearching(false))
     }
 
     return (
@@ -36,18 +41,21 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                     transition
                     className="w-full max-w-md rounded-xl bg-white/80 dark:bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
                     >
+                    {!searching ?
+                        <>
                         {/* Name */}
                         <Field>
                             <Label className="text-sm/6 font-medium dark:text-white text-black">Search</Label>
                             <Description className="text-sm/6 dark:text-white/50 text-gray-400">Search for channels to follow.</Description>
                             <Input
+                            required
                             className={clsx(
                                 'mt-3 block w-full rounded-lg border-none bg-gray-100 dark:bg-white/5 py-1.5 px-3 text-sm/6 text-black dark:text-white',
                                 'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
                             )}
                             value={search} onChange={e => setSearch(e.target.value)}
                             />
-                            {/* {errors.name && <div className='text-red-500 p-1 text-sm'>{errors.name}</div>} */}
+                            {error && <div className='text-red-500 p-1 text-sm'>{`${error}`}</div>}
                         </Field>
 
                         {/* Submit */}
@@ -59,6 +67,12 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                                 Search
                             </Button>
                         </div>
+                        </> :
+                        <div className='bg-red-500'>
+                            {/* <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">...</svg> */}
+                            Searching...
+                        </div>
+                    }
                     </DialogPanel>
                 </div>
             </div>
