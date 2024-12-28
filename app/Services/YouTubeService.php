@@ -25,6 +25,8 @@ class YouTubeService
             'part' => 'snippet,id',
             'type' => 'channel',
             'q' => $term,
+            'maxResults' => 20,
+            'relevanceLanguage' => 'en',
         ])->get($url);
 
         if ($response->successful()) return $response->json();
@@ -41,6 +43,8 @@ class YouTubeService
             'type' => 'video',
             'channelId' => $channelId,
             'order' => 'date',
+            'relevanceLanguage' => 'en',
+            'maxResults' => 20,
         ])->get($url);
 
         if ($response->successful()) return $response->json();

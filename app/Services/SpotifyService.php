@@ -45,7 +45,8 @@ class SpotifyService
             'type' => 'show',
             'q' => $term,
             'market' => 'US',
-            'limit' => 20
+            'limit' => 20,
+            "language" => "en",
         ])->get($url);
 
         if ($response->successful()) return $response->json();
@@ -59,7 +60,9 @@ class SpotifyService
 
         $response = Http::withToken($this->token)
         ->withQueryParameters([
-            'limit' => 10
+            'limit' => 20,
+            'market' => 'US',
+            'language' => "en",
         ])->get($url);
 
         if ($response->successful()) return $response->json();

@@ -2,6 +2,7 @@ import { Button, Description, Dialog, DialogPanel, Field, Input, Label } from "@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { FormEvent, useState } from "react";
 import clsx from 'clsx'
+import Loading from "@/Pages/Components/Loading";
 
 interface Props {
     isOpen: boolean
@@ -11,30 +12,44 @@ interface Props {
 export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
 
     const [ searching, setSearching ] = useState(false)
-    const [ error, setError ] = useState()
+    const [ error, setError ] = useState('')
     const [ search, setSearch ] = useState('')
     const [ results, setResults ] = useState([])
 
     function submit(e: FormEvent) {
-        console.log('submitted')
+        // reset error
         e.preventDefault()
+        setError('')
+        setSearch('')
+        setResults([])
 
+        // prepare search url to SearchChannelsController
         const url = new URL(route('channels'));
         url.searchParams.append('search', search);
 
+        // complete search
         setSearching(true)
-        console.log(searching)
         fetch(url.toString())
             .then((res) => res.json())
             .then((data) => {
-                console.log('Channels:', data.channels); // Access your channels
+                console.log(data)
+                setResults(data); // setting response in state
             })
             .catch((err) => {console.log(`${err}`); setError(err)})
             .finally(() => setSearching(false))
     }
 
+    function close() {
+        closeDialog()
+        setError('')
+        setSearch('')
+        setResults([])
+    }
+
+    console.log(results)
+
     return (
-        <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={() => {closeDialog();}}>
+        <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={close}>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-center justify-center p-4">
                     <DialogPanel
@@ -67,11 +82,14 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                                 Search
                             </Button>
                         </div>
+
+
+                        {results.map((item) => (
+                            <p>{JSON.stringify(item)}</p>
+                        ))}
+
                         </> :
-                        <div className='bg-red-500'>
-                            {/* <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">...</svg> */}
-                            Searching...
-                        </div>
+                        <Loading />
                     }
                     </DialogPanel>
                 </div>

@@ -85,7 +85,7 @@ export default function Dashboard({feed}: Props) {
                         </div>
                         <div className='place-self-center mb-6 w-1/2'>
                             <div className='p-6 rounded-lg bg-gray-100 dark:bg-gray-900'>
-                                <button onClick={openDialog} className="flex gap-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                                <button onClick={openDialog} className="w-full flex gap-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                                     <MagnifyingGlassIcon className="w-5 h-5" />
                                     <p>Search all channels...</p>
                                 </button>
