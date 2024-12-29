@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Models\Feed;
 use App\Models\User;
 use Spatie\LaravelData\Data;
 
@@ -18,16 +19,16 @@ class FeedData extends Data
     ) {
     }
 
-    public static function fromModel(\App\Models\Feed $feed): self
+    public static function fromModel(Feed $feed): self
     {
         return new self(
-            id: $feed->id,
-            name: $feed->name,
-            user_id: $feed->user_id,
-            user: $feed->relationLoaded('user') ? $feed->user : null, // Include user if loaded
-            selected: $feed->selected,
-            created_at: $feed->created_at->toDateTimeString(),
-            updated_at: $feed->updated_at->toDateTimeString()
+            $feed->id,
+            $feed->name,
+            $feed->user_id,
+            $feed->relationLoaded('user') ? $feed->user : null, // Include user if loaded
+            $feed->selected,
+            $feed->created_at->toDateTimeString(),
+            $feed->updated_at->toDateTimeString()
         );
     }
 }

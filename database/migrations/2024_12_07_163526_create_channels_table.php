@@ -15,8 +15,12 @@ return new class extends Migration
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('source_id');
+            $table->string('source_id')->unique();
             $table->enum('type', SourceTypeEnum::getValues());
+            $table->string('description');
+            $table->string('thumbnail');
+            $table->string('link')->unique();
+            $table->string('publisher')->nullable();
             $table->timestamps();
         });
     }

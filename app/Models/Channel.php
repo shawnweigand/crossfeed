@@ -11,6 +11,10 @@ class Channel extends Model
         'name',
         'source_id',
         'type',
+        'description',
+        'thumbnail',
+        'link',
+        'publisher',
     ];
 
     protected function casts(): array

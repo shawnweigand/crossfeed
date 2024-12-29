@@ -7,8 +7,44 @@ import SearchChannelDialog from './Partials/SearchChannelDialog';
 import { useState } from 'react';
 
 interface Props {
-    feed: App.Data.FeedData
+    feed: App.Data.Feed
 }
+
+const people = [
+    {
+        name: 'Youtube dog highlights',
+        description: 'This channel is about Benchmarks of various PC components and Laptops. For Sponsorship & Product Reviews you can email difnsODinfaosdifnsd aspidfjpasdijf pasdiof asdpf adspi ',
+        id: 1,
+        source_id: '1234567890',
+        type: 'YOUTUBE',
+        thumbnail:
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        link: '#',
+        publisher: null,
+    },
+    {
+        name: 'Spotify podcast about dogs',
+        description: 'short description...',
+        id: 2,
+        source_id: '1234567890',
+        type: 'SPOTIFY',
+        thumbnail:
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        link: '#',
+        publisher: null,
+    },
+    {
+      name: 'Other medium...',
+      description: 'short description...',
+      id: 3,
+      source_id: '1234567890',
+      type: 'YOUTUBE',
+      thumbnail:
+        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      link: '#',
+      publisher: null,
+    },
+  ]
 
 export default function Dashboard({feed}: Props) {
 
@@ -24,9 +60,9 @@ export default function Dashboard({feed}: Props) {
             //     </h2>
             // }
         >
-            <Head title="Feed" />
-
             <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog}/>
+
+            <Head title="Feed" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -92,7 +128,8 @@ export default function Dashboard({feed}: Props) {
                             </div>
                         </div>
                         <div className='place-self-center mb-6 w-3/4'>
-                            <FollowingsTable />
+                            <h1 className='text-xl mb-2 text-gray-500'>Following</h1>
+                            <FollowingsTable channels={people} />
                         </div>
                     </div>
                 </div>

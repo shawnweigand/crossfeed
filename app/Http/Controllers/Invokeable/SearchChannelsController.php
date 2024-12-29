@@ -26,20 +26,20 @@ class SearchChannelsController extends Controller
 
         // transform youtube
         foreach ($youtubeSearch as $item) {
-            $response += [
+            array_push($response, [
                 'type' => 'YOUTUBE',
-                'id' => $item['snippet']['channelId'],
-                'name' => $item['snippet']['channelTitle'],
-                'description' => $item['snippet']['description'],
-                'thumbnail' => $item['snippet']['thumbnails']['default'],
-                'link' => '',
-                'publisher' => ''
-            ];
+                    'id' => $item['snippet']['channelId'],
+                    'name' => $item['snippet']['channelTitle'],
+                    'description' => $item['snippet']['description'],
+                    'thumbnail' => $item['snippet']['thumbnails']['default']['url'],
+                    'link' => '',
+                    'publisher' => ''
+                ]);
         }
 
         // transform spotify
         foreach ($spotifySearch as $item) {
-            $response += [
+            array_push($response, [
                 'type' => 'SPOTIFY',
                 'id' => $item['id'],
                 'name' => $item['name'],
@@ -47,7 +47,7 @@ class SearchChannelsController extends Controller
                 'thumbnail' => $item['images'][0]['url'],
                 'link' => $item['href'],
                 'publisher' => $item['publisher'],
-            ];
+            ]);
         }
 
         return response()->json($response);

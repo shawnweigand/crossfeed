@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { FormEvent, useState } from "react";
 import clsx from 'clsx'
 import Loading from "@/Pages/Components/Loading";
+import FollowingsTable from "./FollowingsTable";
 
 interface Props {
     isOpen: boolean
@@ -54,7 +55,7 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <DialogPanel
                     transition
-                    className="w-full max-w-md rounded-xl bg-white/80 dark:bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+                    className="w-full max-w-4xl rounded-xl bg-white/80 dark:bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
                     >
                     {!searching ?
                         <>
@@ -74,7 +75,7 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                         </Field>
 
                         {/* Submit */}
-                        <div className="mt-8">
+                        <div className="my-8">
                             <Button
                             onClick={submit}
                             className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
@@ -83,10 +84,10 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                             </Button>
                         </div>
 
-
-                        {results.map((item) => (
+                        <FollowingsTable channels={results} />
+                        {/* {results.map((item) => (
                             <p>{JSON.stringify(item)}</p>
-                        ))}
+                        ))} */}
 
                         </> :
                         <Loading />
