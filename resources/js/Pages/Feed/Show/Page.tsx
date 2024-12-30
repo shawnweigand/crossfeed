@@ -52,6 +52,10 @@ export default function Dashboard({feed}: Props) {
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
 
+    const onClick = (channel: App.Data.ChannelData) => {
+        console.log(channel, feed)
+    }
+
     return (
         <AuthenticatedLayout
             // header={
@@ -60,7 +64,7 @@ export default function Dashboard({feed}: Props) {
             //     </h2>
             // }
         >
-            <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog}/>
+            <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog} feed={feed} />
 
             <Head title="Feed" />
 
@@ -129,7 +133,7 @@ export default function Dashboard({feed}: Props) {
                         </div>
                         <div className='place-self-center mb-6 w-3/4'>
                             <h1 className='text-xl mb-2 text-gray-500'>Following</h1>
-                            <FollowingsTable channels={people} />
+                            <FollowingsTable channels={people} isSearch={false} onClick={onClick} />
                         </div>
                     </div>
                 </div>

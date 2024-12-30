@@ -45,7 +45,7 @@ class SearchChannelsController extends Controller
                 'name' => $item['name'],
                 'description' => $item['description'],
                 'thumbnail' => $item['images'][0]['url'],
-                'link' => $item['href'],
+                'link' => $item['external_urls']['spotify'],
                 'publisher' => $item['publisher'],
             ]);
         }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\SourceTypeEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Channel extends Model
 {
@@ -22,5 +23,10 @@ class Channel extends Model
         return [
             'type' => SourceTypeEnum::class,
         ];
+    }
+
+    public function feeds(): BelongsToMany
+    {
+        return $this->belongsToMany(Feed::class, 'followings')->as('followings')->withTimestamps();
     }
 }

@@ -8,9 +8,10 @@ import FollowingsTable from "./FollowingsTable";
 interface Props {
     isOpen: boolean
     closeDialog: () => void
+    feed: App.Data.Feed
 }
 
-export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
+export default function SearchChannelDialog({isOpen, closeDialog, feed}: Props) {
 
     const [ searching, setSearching ] = useState(false)
     const [ error, setError ] = useState('')
@@ -47,7 +48,9 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
         setResults([])
     }
 
-    console.log(results)
+    const onClick = (channel: App.Data.ChannelData) => {
+        console.log(channel, feed)
+    }
 
     return (
         <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={close}>
@@ -84,7 +87,7 @@ export default function SearchChannelDialog({isOpen, closeDialog}: Props) {
                             </Button>
                         </div>
 
-                        <FollowingsTable channels={results} />
+                        <FollowingsTable channels={results} isSearch={true} onClick={onClick} />
                         {/* {results.map((item) => (
                             <p>{JSON.stringify(item)}</p>
                         ))} */}
