@@ -7,54 +7,15 @@ import SearchChannelDialog from './Partials/SearchChannelDialog';
 import { useState } from 'react';
 
 interface Props {
-    feed: App.Data.Feed
+    feed: App.Data.FeedData
+    channels: App.Data.ChannelData[]
 }
 
-const people = [
-    {
-        name: 'Youtube dog highlights',
-        description: 'This channel is about Benchmarks of various PC components and Laptops. For Sponsorship & Product Reviews you can email difnsODinfaosdifnsd aspidfjpasdijf pasdiof asdpf adspi ',
-        id: 1,
-        source_id: '1234567890',
-        type: 'YOUTUBE',
-        thumbnail:
-          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        link: '#',
-        publisher: null,
-    },
-    {
-        name: 'Spotify podcast about dogs',
-        description: 'short description...',
-        id: 2,
-        source_id: '1234567890',
-        type: 'SPOTIFY',
-        thumbnail:
-          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        link: '#',
-        publisher: null,
-    },
-    {
-      name: 'Other medium...',
-      description: 'short description...',
-      id: 3,
-      source_id: '1234567890',
-      type: 'YOUTUBE',
-      thumbnail:
-        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      link: '#',
-      publisher: null,
-    },
-  ]
-
-export default function Dashboard({feed}: Props) {
+export default function Dashboard({ feed, channels }: Props) {
 
     const [ isOpen, setIsOpen ] = useState(false)
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
-
-    const onClick = (channel: App.Data.ChannelData) => {
-        console.log(channel, feed)
-    }
 
     return (
         <AuthenticatedLayout
@@ -64,7 +25,7 @@ export default function Dashboard({feed}: Props) {
             //     </h2>
             // }
         >
-            <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog} feed={feed} />
+            <SearchChannelDialog isOpen={isOpen} closeDialog={closeDialog} feed={feed} follows={channels} />
 
             <Head title="Feed" />
 
@@ -133,7 +94,7 @@ export default function Dashboard({feed}: Props) {
                         </div>
                         <div className='place-self-center mb-6 w-3/4'>
                             <h1 className='text-xl mb-2 text-gray-500'>Following</h1>
-                            <FollowingsTable channels={people} isSearch={false} onClick={onClick} />
+                            <FollowingsTable feed={feed} channels={channels} isSearch={false} follows={channels} />
                         </div>
                     </div>
                 </div>

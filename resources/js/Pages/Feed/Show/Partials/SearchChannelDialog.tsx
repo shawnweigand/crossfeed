@@ -9,9 +9,10 @@ interface Props {
     isOpen: boolean
     closeDialog: () => void
     feed: App.Data.Feed
+    follows: App.Data.ChannelData[]
 }
 
-export default function SearchChannelDialog({isOpen, closeDialog, feed}: Props) {
+export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}: Props) {
 
     const [ searching, setSearching ] = useState(false)
     const [ error, setError ] = useState('')
@@ -34,7 +35,6 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed}: Props) 
         fetch(url.toString())
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 setResults(data); // setting response in state
             })
             .catch((err) => {console.log(`${err}`); setError(err)})
@@ -46,10 +46,6 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed}: Props) 
         setError('')
         setSearch('')
         setResults([])
-    }
-
-    const onClick = (channel: App.Data.ChannelData) => {
-        console.log(channel, feed)
     }
 
     return (
@@ -87,7 +83,7 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed}: Props) 
                             </Button>
                         </div>
 
-                        <FollowingsTable channels={results} isSearch={true} onClick={onClick} />
+                        <FollowingsTable feed={feed} channels={results} isSearch={true} follows={follows} />
                         {/* {results.map((item) => (
                             <p>{JSON.stringify(item)}</p>
                         ))} */}

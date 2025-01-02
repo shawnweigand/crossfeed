@@ -17,7 +17,7 @@ class ChannelData extends Data
         public string $type,
         public string $description,
         public string $thumbnail,
-        public string $link,
+        public ?string $link,
         public ?string $publisher,
         public string $created_at,
         public string $updated_at

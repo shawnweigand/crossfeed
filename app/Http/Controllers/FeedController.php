@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\ChannelData;
+use App\Data\FeedData;
 use App\Models\Feed;
 use App\Rules\LessThanFiveFeeds;
 use Illuminate\Http\Request;
@@ -53,7 +55,8 @@ class FeedController extends Controller
     public function show(string $id)
     {
         return Inertia::render('Feed/Show/Page', [
-            'feed' => Feed::find($id)
+            'feed' => FeedData::from(Feed::find($id)),
+            'channels' => ChannelData::collect(Feed::find($id)->channels)
         ]);
     }
 

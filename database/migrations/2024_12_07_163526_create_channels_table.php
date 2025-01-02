@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('source_id')->unique();
             $table->enum('type', SourceTypeEnum::getValues());
-            $table->string('description');
+            $table->text('description');
             $table->string('thumbnail');
-            $table->string('link')->unique();
+            $table->string('link')->unique()->nullable();
             $table->string('publisher')->nullable();
             $table->timestamps();
         });

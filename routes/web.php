@@ -1,6 +1,7 @@
 <?php
 
 use App\Data\FeedData;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\Invokeable\SearchChannelsController;
 use App\Http\Controllers\Invokeable\SelectFeedController;
@@ -20,6 +21,9 @@ Route::get('/', function () {
 });
 
 Route::resource('feed', FeedController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('channel', ChannelController::class)
     ->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {

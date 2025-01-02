@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Channel;
+use App\Models\Feed;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -27,7 +29,17 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $channel = Channel::updateOrCreate([
+            'name' => $request->name,
+            'source_id' => $request->source_id,
+            'type' => $request->type,
+            'description' => $request->description,
+            'thumbnail' => $request->thumbnail,
+            'link' => $request->link,
+            'publisher' => $request->publisher,
+        ]);
+        $channel->feeds()->attach($request->feed_id);
+        return to_route('feed.show', $request->feed_id);
     }
 
     /**
@@ -57,8 +69,10 @@ class ChannelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $source_id)
     {
-        //
+        $channel = Channel::where('source_id', $source_id)->first();
+        $channel->feeds()->detach($request->feed_id);
+        return to_route('feed.show', $request->feed_id);
     }
 }

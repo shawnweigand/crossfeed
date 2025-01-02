@@ -19,35 +19,35 @@ class SearchChannelsController extends Controller
         $youtube = new YouTubeService;
         $spotify = new SpotifyService;
 
-        $youtubeSearch = $youtube->search($search)['items'];
         $spotifySearch = $spotify->search($search)['shows']['items'];
+        $youtubeSearch = $youtube->search($search)['items'];
 
         $response = [];
-
-        // transform youtube
-        foreach ($youtubeSearch as $item) {
-            array_push($response, [
-                'type' => 'YOUTUBE',
-                    'id' => $item['snippet']['channelId'],
-                    'name' => $item['snippet']['channelTitle'],
-                    'description' => $item['snippet']['description'],
-                    'thumbnail' => $item['snippet']['thumbnails']['default']['url'],
-                    'link' => '',
-                    'publisher' => ''
-                ]);
-        }
 
         // transform spotify
         foreach ($spotifySearch as $item) {
             array_push($response, [
-                'type' => 'SPOTIFY',
-                'id' => $item['id'],
+                'type' => 'Spotify',
+                'source_id' => $item['id'],
                 'name' => $item['name'],
                 'description' => $item['description'],
                 'thumbnail' => $item['images'][0]['url'],
                 'link' => $item['external_urls']['spotify'],
                 'publisher' => $item['publisher'],
             ]);
+        }
+
+        // transform youtube
+        foreach ($youtubeSearch as $item) {
+            array_push($response, [
+                'type' => 'YouTube',
+                    'source_id' => $item['snippet']['channelId'],
+                    'name' => $item['snippet']['channelTitle'],
+                    'description' => $item['snippet']['description'],
+                    'thumbnail' => $item['snippet']['thumbnails']['default']['url'],
+                    'link' => '',
+                    'publisher' => ''
+                ]);
         }
 
         return response()->json($response);
