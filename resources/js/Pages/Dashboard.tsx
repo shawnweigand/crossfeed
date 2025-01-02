@@ -1,16 +1,26 @@
+import Sidebar from '@/Components/Sidebar';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
+import FeedBar from './Partials/FeedBar';
 
-export default function Dashboard() {
+interface Props {
+    feeds: App.Data.FeedData[]
+}
+
+export default function Dashboard({feeds}: Props) {
+
     return (
         <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Dashboard
-                </h2>
-            }
+            // header={
+            //     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            //         Dashboard
+            //     </h2>
+            // }
         >
             <Head title="Dashboard" />
+
+            <FeedBar feeds={feeds} />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
