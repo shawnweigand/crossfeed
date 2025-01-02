@@ -8,7 +8,7 @@ import FollowingsTable from "./FollowingsTable";
 interface Props {
     isOpen: boolean
     closeDialog: () => void
-    feed: App.Data.Feed
+    feed: App.Data.FeedData
     follows: App.Data.ChannelData[]
 }
 
