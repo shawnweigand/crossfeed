@@ -30,29 +30,30 @@ class SearchPostsController extends Controller
             if ($channel->type === 'Spotify') {
                 $spotify_posts = $this->spotify->episodes($channel->source_id)['items'];
                 foreach ($spotify_posts as $post) {
-                    // array_push($posts, [
-                    //     'type' => 'Spotify',
-                    //     'source_id' => $post['id'],
-                    //     'name' => $post['name'],
-                    //     'description' => $post['description'],
-                    //     'thumbnail' => $post['images'][0]['url'],
-                    //     'link' => $post['external_urls']['spotify'],
-                    //     'channel' => $channel,
-                    // ]);
+                    // array_push($posts, $post);
+                    array_push($posts, [
+                        'type' => 'Spotify',
+                        'source_id' => $post['id'],
+                        'name' => $post['name'],
+                        'description' => $post['description'],
+                        'thumbnail' => $post['images'][0]['url'],
+                        'link' => $post['external_urls']['spotify'],
+                        'channel' => $channel,
+                    ]);
                 }
             } else if ($channel->type === 'YouTube') {
                 $youtube_posts = $this->youtube->videos($channel->source_id)['items'];
                 foreach ($youtube_posts as $post) {
-                    array_push($posts, $post);
-                    // array_push($posts, [
-                    //     'type' => 'YouTube',
-                    //     'source_id' => $post['id']['videoId'],
-                    //     'name' => $post['name'],
-                    //     'description' => $post['description'],
-                    //     'thumbnail' => $post['images'][0]['url'],
-                    //     'link' => $post['external_urls']['spotify'],
-                    //     'channel' => $channel,
-                    // ]);
+                    // array_push($posts, $post);
+                    array_push($posts, [
+                        'type' => 'YouTube',
+                        'source_id' => $post['id']['videoId'],
+                        'name' => $post['snippet']['title'],
+                        'description' => $post['snippet']['description'],
+                        'thumbnail' => $post['snippet']['thumbnails']['default']['url'],
+                        'link' => '',
+                        'channel' => $channel,
+                    ]);
                 }
             }
         }
