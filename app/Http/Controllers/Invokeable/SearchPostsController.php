@@ -34,10 +34,11 @@ class SearchPostsController extends Controller
                     array_push($posts, [
                         'type' => 'Spotify',
                         'source_id' => $post['id'],
-                        'name' => $post['name'],
+                        'title' => $post['name'],
                         'description' => $post['description'],
-                        'thumbnail' => $post['images'][0]['url'],
+                        'image' => $post['images'][0]['url'],
                         'link' => $post['external_urls']['spotify'],
+                        'timestamp' => $post['release_date'],
                         'channel' => $channel,
                     ]);
                 }
@@ -48,10 +49,11 @@ class SearchPostsController extends Controller
                     array_push($posts, [
                         'type' => 'YouTube',
                         'source_id' => $post['id']['videoId'],
-                        'name' => $post['snippet']['title'],
+                        'title' => $post['snippet']['title'],
                         'description' => $post['snippet']['description'],
-                        'thumbnail' => $post['snippet']['thumbnails']['default']['url'],
+                        'image' => $post['snippet']['thumbnails']['high']['url'],
                         'link' => '',
+                        'timestamp' => '', // find this out with new quota
                         'channel' => $channel,
                     ]);
                 }
