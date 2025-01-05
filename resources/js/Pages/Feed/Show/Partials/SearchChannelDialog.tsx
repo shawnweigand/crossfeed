@@ -1,5 +1,5 @@
 import { Button, Description, Dialog, DialogPanel, Field, Input, Label } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { FormEvent, useState } from "react";
 import clsx from 'clsx'
 import Loading from "@/Pages/Components/Loading";
@@ -18,6 +18,16 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
     const [ error, setError ] = useState('')
     const [ search, setSearch ] = useState('')
     const [ results, setResults ] = useState([])
+    const [ filter, setFilter ] = useState([
+        {
+            name: 'Spotify',
+            status: true
+        },
+        {
+            name: 'YouTube',
+            status: false
+        }
+    ])
 
     function submit(e: FormEvent) {
         // reset error
@@ -62,6 +72,23 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
                         <Field>
                             <Label className="text-sm/6 font-medium dark:text-white text-black">Search</Label>
                             <Description className="text-sm/6 dark:text-white/50 text-gray-400">Search for channels to follow.</Description>
+                            <div className="flex w-full gap-4 p-4">
+                                {
+                                    filter.map(item => (
+                                        <button
+                                        key={item.name}
+                                        onClick={() => {}}
+                                        className={clsx(
+                                            'flex items-center rounded-full py-1.5 px-3 text-sm/6 font-semibold text-white',
+                                            item.status ? 'dark:bg-gray-700 dark:hover:bg-gray-800 bg-gray-800 hover:bg-gray-700' : 'dark:bg-gray-800 dark:hover:bg-gray-700 bg-gray-400 hover:bg-gray-800'
+                                        )}
+                                        >
+                                            {item.status && <CheckIcon className="size-4 mr-1" />}
+                                            {item.name}
+                                        </button>
+                                    ))
+                                }
+                            </div>
                             <Input
                             required
                             className={clsx(
