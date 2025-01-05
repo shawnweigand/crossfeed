@@ -9,18 +9,21 @@ use Illuminate\Http\Request;
 
 class SearchChannelsController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
+    protected $spotify;
+    protected $youtube;
+
+    public function __construct()
+    {
+        $this->spotify = new SpotifyService;
+        $this->youtube = new YouTubeService;
+    }
+
     public function __invoke(Request $request)
     {
         $search = $request->query('search', '');
 
-        $youtube = new YouTubeService;
-        $spotify = new SpotifyService;
-
-        $spotifySearch = $spotify->search($search)['shows']['items'];
-        $youtubeSearch = $youtube->search($search)['items'];
+        $spotifySearch = $this->spotify->search($search)['shows']['items'];
+        $youtubeSearch =  $this->youtube->search($search)['items'];
 
         $response = [];
 

@@ -3,6 +3,7 @@
 use App\Data\FeedData;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\Invokeable\SearchPostsController;
 use App\Http\Controllers\Invokeable\SearchChannelsController;
 use App\Http\Controllers\Invokeable\SelectFeedController;
 use App\Http\Controllers\ProfileController;
@@ -41,5 +42,6 @@ Route::middleware('auth')->group(function () {
 ######## Invokable ########
 Route::post('select', SelectFeedController::class)->name('select')->middleware(['auth', 'verified']);
 Route::get('channels', SearchChannelsController::class)->name('channels')->middleware(['auth', 'verified']);
+Route::get('{feed}/posts', SearchPostsController::class)->name('posts')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

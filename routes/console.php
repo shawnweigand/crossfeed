@@ -21,7 +21,8 @@ Artisan::command('spotify:search {term}', function (string $term) {
 
 Artisan::command('spotify:episodes {term}', function (string $term) {
     $spotify = new SpotifyService();
-    $show = $spotify->search($term)['shows']['items'][0];
+    // $show = $spotify->search($term)['shows']['items'][0];
+    $show = ['id' => '73TygG2cEGJPWbOGPB2CZ0'];
     $episodes = $spotify->episodes(($show['id']));
     $this->comment(json_encode($episodes['items']));
 });
