@@ -21,7 +21,7 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
     const [ filter, setFilter ] = useState([
         {
             name: 'Spotify',
-            status: true
+            status: false
         },
         {
             name: 'YouTube',
@@ -39,16 +39,22 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
         // prepare search url to SearchChannelsController
         const url = new URL(route('channels'));
         url.searchParams.append('search', search);
+        url.searchParams.append('filter', filter
+            .filter(item => item.status)
+            .map(item => item.name)
+            .join(','))
 
-        // complete search
-        setSearching(true)
-        fetch(url.toString())
-            .then((res) => res.json())
-            .then((data) => {
-                setResults(data); // setting response in state
-            })
-            .catch((err) => {console.log(`${err}`); setError(err)})
-            .finally(() => setSearching(false))
+        console.log(url.toString())
+
+        // // complete search
+        // setSearching(true)
+        // fetch(url.toString())
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         setResults(data); // setting response in state
+        //     })
+        //     .catch((err) => {console.log(`${err}`); setError(err)})
+        //     .finally(() => setSearching(false))
     }
 
     function close() {
@@ -77,7 +83,7 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
                                     filter.map(item => (
                                         <button
                                         key={item.name}
-                                        onClick={() => {}}
+                                        onClick={() => setFilter(filter.map(f => f.name === item.name ? {...f, status: !f.status} : f))}
                                         className={clsx(
                                             'flex items-center rounded-full py-1.5 px-3 text-sm/6 font-semibold text-white',
                                             item.status ? 'dark:bg-gray-700 dark:hover:bg-gray-800 bg-gray-800 hover:bg-gray-700' : 'dark:bg-gray-800 dark:hover:bg-gray-700 bg-gray-400 hover:bg-gray-800'

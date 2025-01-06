@@ -29,7 +29,7 @@ export default function Posts({feed}: Props) {
         fetch(url.toString())
             .then((res) => res.json())
             .then((data) => {
-                setPosts(data); // setting response in state
+                setPosts(data.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())); // setting response in state
             })
             .catch((err) => {console.log(`${err}`); setError(err)})
             .finally(() => setSearching(false))
@@ -45,7 +45,7 @@ export default function Posts({feed}: Props) {
         <div className="mx-auto max-w-xl sm:px-6 lg:px-8">
             {posts.map(post => (
                 <a href={post.link} target='_blank' key={post.source_id}>
-                    <div className="my-6 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                    <div className="my-12 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="text-gray-900 dark:text-gray-100">
                             <div className="flex gap-4 items-center p-6 w-full h-1/2">
                                 <img src={post.channel.thumbnail} alt={post.title} className="size-16 rounded-full" />
@@ -63,6 +63,7 @@ export default function Posts({feed}: Props) {
                             </div>
                         </div>
                     </div>
+                    {/* <pre className="text-xs text-center text-gray-400 dark:text-gray-500">{JSON.stringify(post, null, 2)}</pre> */}
                 </a>
             ))}
         </div>

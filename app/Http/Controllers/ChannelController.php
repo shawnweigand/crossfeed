@@ -33,7 +33,7 @@ class ChannelController extends Controller
             'name' => $request->name,
             'source_id' => $request->source_id,
             'type' => $request->type,
-            'description' => $request->description,
+            'description' => $request->description ?? '',
             'thumbnail' => $request->thumbnail,
             'link' => $request->link,
             'publisher' => $request->publisher,

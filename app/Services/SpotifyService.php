@@ -45,7 +45,7 @@ class SpotifyService
             'type' => 'show',
             'q' => $term,
             'market' => 'US',
-            'limit' => 20,
+            'limit' => 10,
             "language" => "en",
         ])->get($url);
 
@@ -60,7 +60,7 @@ class SpotifyService
 
         $response = Http::withToken($this->token)
         ->withQueryParameters([
-            'limit' => 20,
+            'limit' => 10,
             'market' => 'US',
             'language' => "en",
         ])->get($url);

@@ -52,8 +52,8 @@ class SearchPostsController extends Controller
                         'title' => $post['snippet']['title'],
                         'description' => $post['snippet']['description'],
                         'image' => $post['snippet']['thumbnails']['high']['url'],
-                        'link' => '',
-                        'timestamp' => '', // find this out with new quota
+                        'link' => 'youtube.com/watch?v=' . $post['id']['videoId'],
+                        'timestamp' => $post['snippet']['publishedAt'], // find this out with new quota
                         'channel' => $channel,
                     ]);
                 }
