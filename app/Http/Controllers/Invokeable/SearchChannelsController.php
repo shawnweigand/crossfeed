@@ -21,9 +21,10 @@ class SearchChannelsController extends Controller
     public function __invoke(Request $request)
     {
         $search = $request->query('search', '');
+        $filter = explode(',', $request->query('filter', ''));
 
-        $spotifySearch = $this->spotify->search($search)['shows']['items'];
-        $youtubeSearch =  $this->youtube->search($search)['items'];
+        $spotifySearch = in_array('Spotify', $filter) ? $this->spotify->search($search)['shows']['items'] : [];
+        $youtubeSearch = in_array('YouTube', $filter) ? $this->youtube->search($search)['items'] : [];
 
         $response = [];
 

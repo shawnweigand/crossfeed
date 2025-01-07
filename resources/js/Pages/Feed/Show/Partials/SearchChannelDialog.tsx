@@ -44,17 +44,15 @@ export default function SearchChannelDialog({isOpen, closeDialog, feed, follows}
             .map(item => item.name)
             .join(','))
 
-        console.log(url.toString())
-
-        // // complete search
-        // setSearching(true)
-        // fetch(url.toString())
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         setResults(data); // setting response in state
-        //     })
-        //     .catch((err) => {console.log(`${err}`); setError(err)})
-        //     .finally(() => setSearching(false))
+        // complete search
+        setSearching(true)
+        fetch(url.toString())
+            .then((res) => res.json())
+            .then((data) => {
+                setResults(data); // setting response in state
+            })
+            .catch((err) => {console.log(`${err}`); setError(err)})
+            .finally(() => setSearching(false))
     }
 
     function close() {
