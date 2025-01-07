@@ -93,7 +93,6 @@ export default function Dashboard({ feed, channels }: Props) {
                             </div>
                         </div>
                         <div className='place-self-center mb-6 w-3/4'>
-                            <h1 className='text-xl mb-2 text-gray-500'>Following</h1>
                             <FollowingsTable feed={feed} channels={channels} isSearch={false} follows={channels} />
                         </div>
                     </div>
