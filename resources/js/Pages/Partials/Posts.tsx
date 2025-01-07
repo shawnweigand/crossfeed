@@ -29,7 +29,7 @@ export default function Posts({feed}: Props) {
         fetch(url.toString())
             .then((res) => res.json())
             .then((data) => {
-                setPosts(data.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())); // setting response in state
+                setPosts(data.sort((a: {timestamp: string}, b: {timestamp: string}) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())); // setting response in state
             })
             .catch((err) => {console.log(`${err}`); setError(err)})
             .finally(() => setSearching(false))

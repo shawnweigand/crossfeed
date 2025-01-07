@@ -26,7 +26,7 @@ export default function Dashboard({feeds}: Props) {
             <FeedBar feeds={feeds} />
 
             <div className="py-12">
-                    <Posts feed={feeds.find(feed => feed.selected)}/>
+                    <Posts feed={feeds.find(feed => feed.selected) as App.Data.FeedData}/>
             </div>
         </AuthenticatedLayout>
     );
