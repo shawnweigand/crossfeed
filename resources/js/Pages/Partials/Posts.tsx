@@ -22,7 +22,7 @@ export default function Posts({feed}: Props) {
     const [ error, setError ] = useState('')
     const [ posts, setPosts ] = useState<Post[]>([])
 
-    const url = new URL(route('posts', {feed: feed.id}));
+    const url = feed && new URL(route('posts', {feed: feed?.id}));
 
     const search = () => {
         setSearching(true)
@@ -36,7 +36,7 @@ export default function Posts({feed}: Props) {
     }
 
     useEffect(() => {
-        search()
+        if (feed) search()
     }, [feed])
 
     if (searching) return <Loading />
