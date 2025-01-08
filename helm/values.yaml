@@ -1,0 +1,38 @@
+deployment:
+  replicas: 1
+  image:
+    repository: shawnweigand/prod
+    tag: crossfeed
+  registry:
+    imagePullSecret: docker-registry-secret
+serviceAccount:
+  name: docker-registry-serviceaccount
+  imagePullSecret: docker-registry-secret
+
+ingress:
+  host: shawnweigand.com
+  tls: true
+
+issuer:
+  email: weigandshawn@gmail.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+
+pdb:
+  minAvailable: 1
+
+config:
+  APP_NAME: "Crossfeed"
+  APP_URL: https://crossfeed.buzz
+  APP_ENV: production
+  SESSION_DRIVER: cookie
+  DB_CONNECTION: pgsql
+  DB_HOST: pgsql
+  DB_PORT: 5432
+  DB_DATABASE: crossfeed
+  # MAIL_MAILER: smtp
+  # MAIL_HOST: smtp.gmail.com
+  # MAIL_PORT: 587
+  # MAIL_USERNAME: shawnweigandapps@gmail.com
+  # MAIL_ENCRYPTION: tls
+  # MAIL_FROM_NAME: "${APP_NAME}"
+  # MAIL_FROM_ADDRESS: weigandshawn@gmail.com
