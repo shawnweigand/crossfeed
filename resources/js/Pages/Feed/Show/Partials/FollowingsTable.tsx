@@ -49,7 +49,7 @@ export default function FollowingsTable({ feed, channels, isSearch, follows }: P
                     <div className="flex min-w-0 gap-x-4 max-w-xl">
                         <img alt="" src={channel.thumbnail} className="size-16" />
                         <div className="min-w-0 flex-auto">
-                        <a href={channel.link} target='_blank' className="text-md/6 font-semibold dark:text-gray-400 hover:underline">{channel.name}</a>
+                        <a href={channel.link ?? '#'} target='_blank' className="text-md/6 font-semibold dark:text-gray-400 hover:underline">{channel.name}</a>
                         <p className="mt-1 text-xs/5 text-gray-500 truncate">{channel.description}</p>
                         </div>
                     </div>
