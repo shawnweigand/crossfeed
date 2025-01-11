@@ -22,8 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Vite::prefetch(concurrency: 3);
-
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
@@ -31,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             Actions::registerCommands();
         }
+
+        Vite::prefetch(concurrency: 3);
     }
 }
