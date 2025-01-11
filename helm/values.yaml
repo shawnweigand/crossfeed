@@ -10,7 +10,7 @@ serviceAccount:
   imagePullSecret: docker-registry-secret
 
 ingress:
-  host: shawnweigand.com
+  host: crossfeed.live
   tls: true
 
 issuer:
@@ -22,11 +22,10 @@ pdb:
 
 config:
   APP_NAME: "Crossfeed"
-  APP_URL: https://crossfeed.buzz
+  APP_URL: https://crossfeed.live
   APP_ENV: production
   SESSION_DRIVER: cookie
   DB_CONNECTION: pgsql
-  DB_HOST: pgsql
   DB_PORT: 5432
   DB_DATABASE: crossfeed
   # MAIL_MAILER: smtp
