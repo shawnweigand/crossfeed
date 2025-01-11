@@ -44,4 +44,9 @@ Route::post('select', SelectFeedController::class)->name('select')->middleware([
 Route::get('channels', SearchChannelsController::class)->name('channels')->middleware(['auth', 'verified']);
 Route::get('{feed}/posts', SearchPostsController::class)->name('posts')->middleware(['auth', 'verified']);
 
+// For liveness probe
+Route::get('/healthz', function () {
+    return response()->json(['status' => 'healthy', 'code' => 200], 200);
+});
+
 require __DIR__.'/auth.php';

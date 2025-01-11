@@ -2,7 +2,7 @@
 $appName = "crossfeed"
 
 # kubectl command to create the secret
-$command="kubectl create secret generic ${appName}-secret"
+$command="kubectl create secret generic ${appName}-secret --namespace ${appName}"
 
 # get initial secrets from HashiCorp Vault
 $secrets=hcp vault-secrets secrets list --app $appName --format=json | ConvertFrom-Json
