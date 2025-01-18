@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react"
-import { on } from "events"
-import { useState } from "react"
+import spotifyImage from '/public/images/spotify.png';
+import youtubeImage from '/public/images/youtube.png';
 
 interface Props {
     feed: App.Data.FeedData
@@ -10,6 +10,11 @@ interface Props {
 }
 
 export default function FollowingsTable({ feed, channels, isSearch, follows }: Props) {
+
+    const imageMap: {[key: string]: string} = {
+        Spotify: spotifyImage,
+        YouTube: youtubeImage,
+    }
 
     const onClick = (channel: App.Data.ChannelData) => {
         switch (follows.some(follow => follow.source_id === channel.source_id)) {
@@ -55,7 +60,7 @@ export default function FollowingsTable({ feed, channels, isSearch, follows }: P
                     </div>
                     <div className='flex gap-8'>
                         <div className="hidden shrink-0 md:flex md:items-center gap-2">
-                            <img alt="" src={`/images/${channel.type}.png`} className="w-10 h-auto flex-none" />
+                            <img alt={channel.type} src={imageMap[channel.type]} className="w-10 h-auto flex-none" />
                             {/* <p className="text-sm/6 text-gray-500 dark:text-gray-400">{person.type}</p> */}
                         </div>
                         <div className='flex w-full items-center justify-center'>

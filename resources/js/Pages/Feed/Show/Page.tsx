@@ -40,20 +40,23 @@ export default function Dashboard({ feed, channels }: Props) {
                             <div className="col-start-2 flex flex-col p-6 items-center relative">
                                 <div className="relative group">
                                     {/* Image */}
-                                    <img
+                                    {/* <img
                                         src="https://via.placeholder.com/150" // {selectedFeed.imageUrl}
                                         alt="Profile"
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
-                                    />
+                                    /> */}
+                                    <div className='size-32 rounded-full mx-auto mb-2 bg-gray-300 flex items-center justify-center text-5xl font-bold text-gray-600'>
+                                        {feed.name.charAt(0)}
+                                    </div>
                                     {/* Hover Overlay */}
-                                    <div className="absolute inset-0 rounded-full bg-gray-200/50 dark:bg-gray-700/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"></div>
+                                    {/* <div className="absolute inset-0 rounded-full bg-gray-200/50 dark:bg-gray-700/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"></div> */}
 
                                     {/* Hover Actions */}
-                                    <div className="flex flex-col gap-2 absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                                    {/* <div className="flex flex-col gap-2 absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
                                         <button>
                                             <PencilSquareIcon className="w-10 h-10 text-gray-900 hover:text-gray-600" />
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">{feed.name}</p>
                             </div>

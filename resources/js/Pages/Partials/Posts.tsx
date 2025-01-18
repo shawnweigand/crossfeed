@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
+import spotifyImage from '/public/images/spotify.png';
+import youtubeImage from '/public/images/youtube.png';
 
 interface Post {
     type: string
@@ -17,6 +19,11 @@ interface Props {
 }
 
 export default function Posts({feed}: Props) {
+
+    const imageMap: {[key: string]: string} = {
+        Spotify: spotifyImage,
+        YouTube: youtubeImage,
+    }
 
     const [ searching, setSearching ] = useState(false)
     const [ error, setError ] = useState('')
@@ -58,7 +65,7 @@ export default function Posts({feed}: Props) {
                             <img src={post.image} alt={post.title} className="w-full h-full" />
                             <p className="text-sm p-4">{post.description}</p>
                             <div className="flex items-center justify-center gap-2 w-full p-3">
-                                <img src={`/images/${post.type}.png`} className="size-5" />
+                                <img alt={post.type} src={imageMap[post.type]} className="size-5" />
                                 <p className="text-xs">Visit on {post.type}</p>
                             </div>
                         </div>
