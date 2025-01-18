@@ -40,10 +40,13 @@ export default function FeedBar({feeds}: Props) {
                         <div className='relative group rounded overflow-hidden'>
                             <div className="absolute inset-0 group-hover:bg-gray-200/50 group-hover:dark:bg-gray-700/50 group-hover:backdrop-blur-sm group-hover:bg-opacity-50 transition-all duration-200 z-10" />
                             <div className="flex flex-col p-6 items-center relative" >
-                                <img
+                                {/* <img
                                     src="https://via.placeholder.com/150"//{selectedFeed.imageUrl}
                                     className="w-20 h-20 rounded-full mx-auto mb-2"
-                                />
+                                /> */}
+                                <div className='size-20 rounded-full mx-auto mb-2 bg-gray-300 flex items-center justify-center text-3xl font-bold text-gray-600'>
+                                        {feed.name.charAt(0)}
+                                </div>
                                 <p className='text-lg font-bold text-gray-900 dark:text-gray-100'>{feed.name}</p>
                             </div>
                             <div className="flex flex-col gap-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 py-1 text-sm text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
@@ -57,10 +60,13 @@ export default function FeedBar({feeds}: Props) {
                         <div className='relative group rounded overflow-hidden'>
                             <div className="absolute inset-0 group-hover:bg-gray-200/50 group-hover:dark:bg-gray-700/50 group-hover:backdrop-blur-sm group-hover:bg-opacity-50 transition-all duration-200 z-10" />
                             <div className="flex flex-col p-6 items-center relative" >
-                                <img
+                                {/* <img
                                     src="https://via.placeholder.com/150"//{selectedFeed.imageUrl}
                                     className="w-16 h-16 rounded-full mx-auto mb-2"
-                                />
+                                /> */}
+                                <div className='size-14 rounded-full mx-auto mb-2 bg-gray-300 flex items-center justify-center text-3xl font-bold text-gray-600'>
+                                        {feed.name.charAt(0)}
+                                </div>
                                 <p className='text-gray-900 dark:text-gray-100'>{feed.name}</p>
                             </div>
                             <div className="flex flex-col gap-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 py-1 text-sm text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
