@@ -26,7 +26,7 @@ config:
   APP_ENV: production
   SESSION_DRIVER: cookie
   DB_CONNECTION: pgsql
-  DB_PORT: 5432
+  DB_PORT: 6543
   DB_DATABASE: crossfeed
   # MAIL_MAILER: smtp
   # MAIL_HOST: smtp.gmail.com
