@@ -65,7 +65,7 @@ export default function Posts({feed}: Props) {
                             <img src={post.image} alt={post.title} className="w-full h-full" />
                             <p className="text-sm p-4">{post.description}</p>
                             <div className="flex items-center justify-center gap-2 w-full p-3">
-                                <img alt={post.type} src={imageMap[post.type]} className="size-5" />
+                                <img alt={post.type} src={imageMap[post.type]} className="w-5 h-auto" />
                                 <p className="text-xs">Visit on {post.type}</p>
                             </div>
                         </div>
