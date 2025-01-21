@@ -28,11 +28,11 @@ export default function Landing({
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              {/* <img
                 alt=""
                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                 className="h-8 w-auto"
-              />
+              /> */}
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -159,11 +159,10 @@ export default function Landing({
           </div>
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              All your socials, all in one place.
+              All your socials, all in <span className='inline bg-purple-300'>one place</span>.
             </h1>
             <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat.
+              Combine the accounts you follow across multiple social media platforms into one easy-to-read feed.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
@@ -172,9 +171,9 @@ export default function Landing({
               >
                 Get started
               </Link>
-              <a href="#" className="text-sm/6 font-semibold text-gray-900">
+              {/* <a href="#" className="text-sm/6 font-semibold text-gray-900">
                 Learn more <span aria-hidden="true">→</span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
