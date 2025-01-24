@@ -33,6 +33,9 @@ export default function Landing({
                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                 className="h-8 w-auto"
               /> */}
+              <h1 className='font-mono text-2xl font-bold text-indigo-600'>
+                cross<h1 className='inline text-black'>feed</h1>
+              </h1>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -159,7 +162,7 @@ export default function Landing({
           </div>
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-              All your socials, all in <span className='inline bg-purple-300'>one place</span>.
+              All your socials, all in <span className='inline text-indigo-600'>one place</span>.
             </h1>
             <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
               Combine the accounts you follow across multiple social media platforms into one easy-to-read feed.
