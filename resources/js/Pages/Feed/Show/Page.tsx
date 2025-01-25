@@ -5,17 +5,19 @@ import FollowingsTable from './Partials/FollowingsTable';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
 import { useState } from 'react';
+import useColor from '@/Utils/useColor';
 
 interface Props {
     feed: App.Data.FeedData
     channels: App.Data.ChannelData[]
 }
 
-export default function Dashboard({ feed, channels }: Props) {
+export default function Page({ feed, channels }: Props) {
 
     const [ isOpen, setIsOpen ] = useState(false)
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
+    const { bg, text } = useColor(feed)
 
     return (
         <AuthenticatedLayout
@@ -45,7 +47,7 @@ export default function Dashboard({ feed, channels }: Props) {
                                         alt="Profile"
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
                                     /> */}
-                                    <div className='size-32 rounded-full mx-auto mb-2 bg-gray-300 flex items-center justify-center text-5xl font-bold text-gray-600'>
+                                    <div className={`${bg} ${text} size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold`}>
                                         {feed.name.charAt(0)}
                                     </div>
                                     {/* Hover Overlay */}
