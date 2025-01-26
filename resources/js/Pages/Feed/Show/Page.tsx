@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Head, Link } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
 import { useState } from 'react';
 import useColor from '@/Utils/useColor';
@@ -39,6 +39,18 @@ export default function Page({ feed, channels }: Props) {
                     </Link>
                     <div className='overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800'>
                         <div className="grid grid-cols-3 mb-6">
+                            <Popover className="relative ">
+                                <PopoverButton className='flex m-4 p-2 bg-yellow-100 rounded'>
+                                    <PencilSquareIcon className="size-5"/>
+                                    <p>Edit Icon</p>
+                                </PopoverButton>
+                                <PopoverPanel anchor="bottom start" className="flex flex-col [--anchor-gap:16px] w-64 bg-gray-600">
+                                    <a href="/analytics">Analytics</a>
+                                    <a href="/engagement">Engagement</a>
+                                    <a href="/security">Security</a>
+                                    <a href="/integrations">Integrations</a>
+                                </PopoverPanel>
+                            </Popover>
                             <div className="col-start-2 flex flex-col p-6 items-center relative">
                                 <div className="relative group">
                                     {/* Image */}
@@ -47,7 +59,7 @@ export default function Page({ feed, channels }: Props) {
                                         alt="Profile"
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
                                     /> */}
-                                    <div className={`${bg} ${text} size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold`}>
+                                    <div className={`${bg} ${text} flex size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold relative group`}>
                                         {feed.name.charAt(0)}
                                     </div>
                                     {/* Hover Overlay */}
