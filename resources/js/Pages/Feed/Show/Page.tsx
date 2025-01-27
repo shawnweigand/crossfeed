@@ -2,10 +2,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Head, Link } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
-import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
 import { useState } from 'react';
 import useColor from '@/Utils/useColor';
+import ColorGrid from './Partials/ColorGrid';
 
 interface Props {
     feed: App.Data.FeedData
@@ -44,11 +45,38 @@ export default function Page({ feed, channels }: Props) {
                                     <PencilSquareIcon className="size-5"/>
                                     <p>Edit Icon</p>
                                 </PopoverButton>
-                                <PopoverPanel anchor="bottom start" className="flex flex-col [--anchor-gap:16px] w-64 bg-gray-600">
-                                    <a href="/analytics">Analytics</a>
-                                    <a href="/engagement">Engagement</a>
-                                    <a href="/security">Security</a>
-                                    <a href="/integrations">Integrations</a>
+                                <PopoverPanel anchor="bottom start" className="p-2 flex flex-col [--anchor-gap:16px] w-64 bg-gray-600">
+                                    <TabGroup
+                                        defaultIndex={0}
+                                        onChange={(index) => {
+                                            console.log('Changed selected tab to:', index)
+                                        }}
+                                    >
+                                        <TabList className='flex gap-4 justify-center'>
+                                            <Tab>
+                                                {({ hover, selected }) => (
+                                                    <p className={`p-2 border-b-2 ${hover || selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                        Background
+                                                    </p>
+                                                )}
+                                            </Tab>
+                                            <Tab>
+                                                {({ hover, selected }) => (
+                                                    <p className={`p-2 border-b-2 ${hover|| selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                        Text
+                                                    </p>
+                                                )}
+                                            </Tab>
+                                        </TabList>
+                                        <TabPanels className='p-2'>
+                                            <TabPanel className='grid grid-cols-4 gap-4'>
+                                                <ColorGrid color={bg} onSelect={(color) => console.log(color)} />
+                                            </TabPanel>
+                                            <TabPanel className='grid grid-cols-4 gap-4'>
+                                                <ColorGrid color={text} onSelect={(color) => console.log(color)} />
+                                            </TabPanel>
+                                        </TabPanels>
+                                    </TabGroup>
                                 </PopoverPanel>
                             </Popover>
                             <div className="col-start-2 flex flex-col p-6 items-center relative">
