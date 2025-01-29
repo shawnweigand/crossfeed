@@ -52,11 +52,11 @@ class FeedController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Feed $feed)
     {
         return Inertia::render('Feed/Show/Page', [
-            'feed' => FeedData::from(Feed::find($id)),
-            'channels' => ChannelData::collect(Feed::find($id)->channels)
+            'feed' => fn () => FeedData::from($feed),
+            'channels' => ChannelData::collect($feed->channels)
         ]);
     }
 
@@ -71,18 +71,19 @@ class FeedController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Feed $feed)
     {
-        //
+        if ($feed->user_id !== Auth::user()->id) {
+            abort(403); // Prevent unauthorized updates
+        }
+        $feed->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Feed $feed)
     {
-        $feed = Feed::find($id);
-
         if ($feed->user_id !== Auth::user()->id) {
             abort(403); // Prevent unauthorized deletions
         }

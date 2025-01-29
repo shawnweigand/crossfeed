@@ -1,12 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
 import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useColor from '@/Utils/useColor';
 import ColorGrid from './Partials/ColorGrid';
+import axios from 'axios';
 
 interface Props {
     feed: App.Data.FeedData
@@ -19,6 +20,22 @@ export default function Page({ feed, channels }: Props) {
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
     const { bg, text } = useColor(feed)
+    const [ selected, setSelected ] = useState<'bg' | 'text'>('bg')
+
+    const onSelect = (color: string) => {
+        let response
+        try {
+            response = axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            router.reload({ only: ['feed'] })
+            // const { bg, text } = useColor(feed)
+        }
+    }
+    useEffect(() => {
+        const { bg, text } = useColor(feed)
+    }, [feed])
 
     return (
         <AuthenticatedLayout
@@ -49,7 +66,7 @@ export default function Page({ feed, channels }: Props) {
                                     <TabGroup
                                         defaultIndex={0}
                                         onChange={(index) => {
-                                            console.log('Changed selected tab to:', index)
+                                            setSelected(index === 0 ? 'bg' : 'text')
                                         }}
                                     >
                                         <TabList className='flex gap-4 justify-center'>
@@ -70,10 +87,10 @@ export default function Page({ feed, channels }: Props) {
                                         </TabList>
                                         <TabPanels className='p-2'>
                                             <TabPanel className='grid grid-cols-4 gap-4'>
-                                                <ColorGrid color={bg} onSelect={(color) => console.log(color)} />
+                                                <ColorGrid color={bg} onSelect={(color) => onSelect(color)} />
                                             </TabPanel>
                                             <TabPanel className='grid grid-cols-4 gap-4'>
-                                                <ColorGrid color={text} onSelect={(color) => console.log(color)} />
+                                                <ColorGrid color={text} onSelect={(color) => onSelect(color)} />
                                             </TabPanel>
                                         </TabPanels>
                                     </TabGroup>
