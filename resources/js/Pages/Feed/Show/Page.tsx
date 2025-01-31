@@ -28,9 +28,8 @@ export default function Page({ feed, channels }: Props) {
     const onSelect = (color: string) => {
         let colors = useColor(color, color)
         setIconColors(selected === 'bg' ? { bg: colors.bg, text: iconColors.text } : { bg: iconColors.bg, text: colors.text })
-        let response
         try {
-            response = axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })
+            axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })
         } catch (error) {
             console.error(error)
         } finally {
