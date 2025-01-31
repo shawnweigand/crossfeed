@@ -19,10 +19,15 @@ export default function Page({ feed, channels }: Props) {
     const [ isOpen, setIsOpen ] = useState(false)
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
-    const { bg, text } = useColor(feed)
+    const [ iconColors, setIconColors ] = useState<{ bg: string, text: string }>({
+        bg: useColor(feed.icon_bg_color, feed.icon_text_color).bg,
+        text: useColor(feed.icon_bg_color, feed.icon_text_color).text
+    })
     const [ selected, setSelected ] = useState<'bg' | 'text'>('bg')
 
     const onSelect = (color: string) => {
+        let colors = useColor(color, color)
+        setIconColors(selected === 'bg' ? { bg: colors.bg, text: iconColors.text } : { bg: iconColors.bg, text: colors.text })
         let response
         try {
             response = axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })
@@ -30,12 +35,8 @@ export default function Page({ feed, channels }: Props) {
             console.error(error)
         } finally {
             router.reload({ only: ['feed'] })
-            // const { bg, text } = useColor(feed)
         }
     }
-    useEffect(() => {
-        const { bg, text } = useColor(feed)
-    }, [feed])
 
     return (
         <AuthenticatedLayout
@@ -87,10 +88,10 @@ export default function Page({ feed, channels }: Props) {
                                         </TabList>
                                         <TabPanels className='p-2'>
                                             <TabPanel className='grid grid-cols-4 gap-4'>
-                                                <ColorGrid color={bg} onSelect={(color) => onSelect(color)} />
+                                                <ColorGrid color={iconColors.bg} onSelect={(color) => onSelect(color)} />
                                             </TabPanel>
                                             <TabPanel className='grid grid-cols-4 gap-4'>
-                                                <ColorGrid color={text} onSelect={(color) => onSelect(color)} />
+                                                <ColorGrid color={iconColors.text} onSelect={(color) => onSelect(color)} />
                                             </TabPanel>
                                         </TabPanels>
                                     </TabGroup>
@@ -104,7 +105,7 @@ export default function Page({ feed, channels }: Props) {
                                         alt="Profile"
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
                                     /> */}
-                                    <div className={`${bg} ${text} flex size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold relative group`}>
+                                    <div className={`${iconColors.bg} ${iconColors.text} flex size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold relative group`}>
                                         {feed.name.charAt(0)}
                                     </div>
                                     {/* Hover Overlay */}

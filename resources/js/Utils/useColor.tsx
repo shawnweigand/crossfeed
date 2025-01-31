@@ -1,4 +1,4 @@
-export default function useColor(feed: App.Data.FeedData) {
+export default function useColor(backgroundColor: string, textColor: string) {
 
     const selectColor: {
         bg: { [key: string]: string },
@@ -59,8 +59,8 @@ export default function useColor(feed: App.Data.FeedData) {
     }
 
     return {
-        bg: selectColor.bg[feed.icon_bg_color],
-        text: selectColor.text[feed.icon_text_color]
+        bg: selectColor.bg[backgroundColor],
+        text: selectColor.text[textColor]
     }
 
 }
