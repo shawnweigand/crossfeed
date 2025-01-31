@@ -22,7 +22,8 @@ Route::get('/', function () {
 });
 
 Route::resource('feed', FeedController::class)
-    ->middleware(['auth', 'verified']);
+    ->middleware(['auth', 'verified'])
+    ->scoped(['feed' => 'id']);
 
 Route::resource('channel', ChannelController::class)
     ->middleware(['auth', 'verified']);

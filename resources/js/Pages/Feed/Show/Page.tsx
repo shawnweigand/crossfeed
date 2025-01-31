@@ -1,21 +1,40 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useColor from '@/Utils/useColor';
+import ColorGrid from './Partials/ColorGrid';
+import axios from 'axios';
 
 interface Props {
     feed: App.Data.FeedData
     channels: App.Data.ChannelData[]
 }
 
-export default function Dashboard({ feed, channels }: Props) {
+export default function Page({ feed, channels }: Props) {
 
     const [ isOpen, setIsOpen ] = useState(false)
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
+    const [ iconColors, setIconColors ] = useState<{ bg: string, text: string }>(
+        useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color })
+    )
+    const [ selected, setSelected ] = useState<'bg' | 'text'>('bg')
+
+    const onSelect = (color: string) => {
+        let colors = useColor({ bg: color, text: color })
+        setIconColors(selected === 'bg' ? { bg: colors.bg, text: iconColors.text } : { bg: iconColors.bg, text: colors.text })
+        try {
+            axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            router.reload({ only: ['feed'] })
+        }
+    }
 
     return (
         <AuthenticatedLayout
@@ -37,6 +56,45 @@ export default function Dashboard({ feed, channels }: Props) {
                     </Link>
                     <div className='overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800'>
                         <div className="grid grid-cols-3 mb-6">
+                            <Popover className="relative ">
+                                <PopoverButton className='flex m-4 p-2 bg-yellow-100 rounded'>
+                                    <PencilSquareIcon className="size-5"/>
+                                    <p>Edit Icon</p>
+                                </PopoverButton>
+                                <PopoverPanel anchor="bottom start" className="p-2 flex flex-col [--anchor-gap:16px] w-64 bg-gray-600">
+                                    <TabGroup
+                                        defaultIndex={0}
+                                        onChange={(index) => {
+                                            setSelected(index === 0 ? 'bg' : 'text')
+                                        }}
+                                    >
+                                        <TabList className='flex gap-4 justify-center'>
+                                            <Tab>
+                                                {({ hover, selected }) => (
+                                                    <p className={`p-2 border-b-2 ${hover || selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                        Background
+                                                    </p>
+                                                )}
+                                            </Tab>
+                                            <Tab>
+                                                {({ hover, selected }) => (
+                                                    <p className={`p-2 border-b-2 ${hover|| selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                        Text
+                                                    </p>
+                                                )}
+                                            </Tab>
+                                        </TabList>
+                                        <TabPanels className='p-2'>
+                                            <TabPanel className='grid grid-cols-4 gap-4'>
+                                                <ColorGrid color={iconColors.bg} onSelect={(color) => onSelect(color)} />
+                                            </TabPanel>
+                                            <TabPanel className='grid grid-cols-4 gap-4'>
+                                                <ColorGrid color={iconColors.text} onSelect={(color) => onSelect(color)} />
+                                            </TabPanel>
+                                        </TabPanels>
+                                    </TabGroup>
+                                </PopoverPanel>
+                            </Popover>
                             <div className="col-start-2 flex flex-col p-6 items-center relative">
                                 <div className="relative group">
                                     {/* Image */}
@@ -45,7 +103,7 @@ export default function Dashboard({ feed, channels }: Props) {
                                         alt="Profile"
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
                                     /> */}
-                                    <div className='size-32 rounded-full mx-auto mb-2 bg-gray-300 flex items-center justify-center text-5xl font-bold text-gray-600'>
+                                    <div className={`${iconColors.bg} ${iconColors.text} flex size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold relative group`}>
                                         {feed.name.charAt(0)}
                                     </div>
                                     {/* Hover Overlay */}

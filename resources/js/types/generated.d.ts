@@ -17,6 +17,8 @@ name: string;
 user_id: number;
 user: any | null;
 selected: boolean;
+icon_bg_color: string;
+icon_text_color: string;
 created_at: string;
 updated_at: string;
 };

@@ -50,7 +50,7 @@ export default function Authenticated({
                                     <div className="flex shrink-0 items-center">
                                         <Link href="/dashboard">
                                             <h1 className='font-mono text-2xl font-bold text-indigo-600'>
-                                                cross<h1 className='inline text-black outline-white'>feed</h1>
+                                                cross<p className='inline text-black outline-white'>feed</p>
                                             </h1>
                                             {/* <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" /> */}
                                         </Link>
