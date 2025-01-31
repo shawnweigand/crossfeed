@@ -45,7 +45,7 @@ export default function FeedBar({feeds}: Props) {
                                     src="https://via.placeholder.com/150"//{selectedFeed.imageUrl}
                                     className="w-20 h-20 rounded-full mx-auto mb-2"
                                 /> */}
-                                <div className={`${useColor(feed.icon_bg_color, feed.icon_text_color).bg} ${useColor(feed.icon_bg_color, feed.icon_text_color).text} size-20 rounded-full mx-auto mb-2 flex items-center justify-center text-3xl font-bold`}>
+                                <div className={`${useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color }).bg} ${useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color }).text} size-20 rounded-full mx-auto mb-2 flex items-center justify-center text-3xl font-bold`}>
                                         {feed.name.charAt(0)}
                                 </div>
                                 <p className='text-lg font-bold text-gray-900 dark:text-gray-100'>{feed.name}</p>
@@ -65,7 +65,7 @@ export default function FeedBar({feeds}: Props) {
                                     src="https://via.placeholder.com/150"//{selectedFeed.imageUrl}
                                     className="w-16 h-16 rounded-full mx-auto mb-2"
                                 /> */}
-                                <div className={`${useColor(feed.icon_bg_color, feed.icon_text_color).bg} ${useColor(feed.icon_bg_color, feed.icon_text_color).text} size-14 rounded-full mx-auto mb-2 flex items-center justify-center text-3xl font-bold`}>
+                                <div className={`${useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color }).bg} ${useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color }).text} size-14 rounded-full mx-auto mb-2 flex items-center justify-center text-3xl font-bold`}>
                                         {feed.name.charAt(0)}
                                 </div>
                                 <p className='text-gray-900 dark:text-gray-100'>{feed.name}</p>

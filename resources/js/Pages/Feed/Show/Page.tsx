@@ -19,14 +19,13 @@ export default function Page({ feed, channels }: Props) {
     const [ isOpen, setIsOpen ] = useState(false)
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
-    const [ iconColors, setIconColors ] = useState<{ bg: string, text: string }>({
-        bg: useColor(feed.icon_bg_color, feed.icon_text_color).bg,
-        text: useColor(feed.icon_bg_color, feed.icon_text_color).text
-    })
+    const [ iconColors, setIconColors ] = useState<{ bg: string, text: string }>(
+        useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color })
+    )
     const [ selected, setSelected ] = useState<'bg' | 'text'>('bg')
 
     const onSelect = (color: string) => {
-        let colors = useColor(color, color)
+        let colors = useColor({ bg: color, text: color })
         setIconColors(selected === 'bg' ? { bg: colors.bg, text: iconColors.text } : { bg: iconColors.bg, text: colors.text })
         try {
             axios.put(route('feed.update', { id: feed.id }),  { [`icon_${selected}_color`]: color }, { withCredentials: true })

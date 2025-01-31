@@ -1,4 +1,4 @@
-export default function useColor(backgroundColor: string, textColor: string) {
+export default function useColor({bg, text}: { bg: string, text: string }) {
 
     const selectColor: {
         bg: { [key: string]: string },
@@ -59,8 +59,8 @@ export default function useColor(backgroundColor: string, textColor: string) {
     }
 
     return {
-        bg: selectColor.bg[backgroundColor],
-        text: selectColor.text[textColor]
+        bg: selectColor.bg[bg],
+        text: selectColor.text[text]
     }
 
 }
