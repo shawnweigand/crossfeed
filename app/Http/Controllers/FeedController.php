@@ -73,9 +73,9 @@ class FeedController extends Controller
      */
     public function update(Request $request, Feed $feed)
     {
-        // if ($feed->user_id !== Auth::user()->id) {
-        //     abort(403); // Prevent unauthorized updates
-        // }
+        if ($feed->user_id !== Auth::user()->id) {
+            abort(403); // Prevent unauthorized updates
+        }
         $feed->update($request->all());
     }
 
