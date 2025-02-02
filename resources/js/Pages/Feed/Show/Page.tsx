@@ -57,11 +57,11 @@ export default function Page({ feed, channels }: Props) {
                     <div className='overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800'>
                         <div className="grid grid-cols-3 mb-6">
                             <Popover className="relative ">
-                                <PopoverButton className='flex m-4 p-2 bg-yellow-100 rounded'>
-                                    <PencilSquareIcon className="size-5"/>
+                                <PopoverButton className='flex m-4 p-2 bg-gray-200 dark:bg-gray-600 rounded'>
+                                    <PencilSquareIcon className="size-5 mr-1"/>
                                     <p>Edit Icon</p>
                                 </PopoverButton>
-                                <PopoverPanel anchor="bottom start" className="p-2 flex flex-col [--anchor-gap:16px] w-64 bg-gray-600">
+                                <PopoverPanel anchor="bottom start" className="p-2 flex flex-col [--anchor-gap:16px] w-64 bg-gray-200 dark:bg-gray-700">
                                     <TabGroup
                                         defaultIndex={0}
                                         onChange={(index) => {
@@ -71,14 +71,14 @@ export default function Page({ feed, channels }: Props) {
                                         <TabList className='flex gap-4 justify-center'>
                                             <Tab>
                                                 {({ hover, selected }) => (
-                                                    <p className={`p-2 border-b-2 ${hover || selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                    <p className={`dark:text-white p-2 border-b-2 ${hover || selected ? 'border-indigo-500' : 'border-transparent'}`}>
                                                         Background
                                                     </p>
                                                 )}
                                             </Tab>
                                             <Tab>
                                                 {({ hover, selected }) => (
-                                                    <p className={`p-2 border-b-2 ${hover|| selected ? 'border-indigo-500' : 'border-transparent'}`}>
+                                                    <p className={`dark:text-white p-2 border-b-2 ${hover|| selected ? 'border-indigo-500' : 'border-transparent'}`}>
                                                         Text
                                                     </p>
                                                 )}
