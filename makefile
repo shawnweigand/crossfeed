@@ -29,7 +29,7 @@ schedule:
 setup:
 	make install
 	make migrate
-    make schedule
+	make schedule
 
 # Sync HashiCorp Vault secrets with cluster
 secrets:
