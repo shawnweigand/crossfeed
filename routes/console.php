@@ -4,6 +4,9 @@ use App\Services\SpotifyService;
 use App\Services\YouTubeService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -38,3 +41,13 @@ Artisan::command('youtube:videos {term}', function (string $term) {
     $videos = $youtube->videos($channel['id']['channelId']);
     $this->comment(json_encode($videos['items']));
 });
+
+// Cron jobs
+Schedule::call(function () {
+    // Call on the DB weekly to prevent Supabase from locking
+
+    DB::table('migrations')->first();
+    // DB::table('channels')->where('id', 3)->update(['name' => Str::random()]);
+    dump('Database called');
+
+})->name('supabase')->weekly()->mondays()->at('06:00');//->everyFifteenSeconds();

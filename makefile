@@ -21,11 +21,15 @@ install:
 	npm install
 
 migrate:
-	php artisan migrate --seed
+	php artisan migrate --seed --force
+
+schedule:
+	php artisan schedule:work
 
 setup:
 	make install
 	make migrate
+    make schedule
 
 # Sync HashiCorp Vault secrets with cluster
 secrets:
