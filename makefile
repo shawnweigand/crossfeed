@@ -21,10 +21,13 @@ install:
 	npm install
 
 migrate:
-	php artisan migrate --seed --force
+	php artisan migrate --force
 
 schedule:
 	php artisan schedule:work
+
+seed:
+	php artisan db:seed
 
 setup:
 	make install
