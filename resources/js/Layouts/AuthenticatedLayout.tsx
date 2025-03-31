@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import Sidebar from '@/Components/Sidebar';
+import flasher from '@flasher/flasher'
 
 export default function Authenticated({
     header,
@@ -37,6 +38,14 @@ export default function Authenticated({
     }, [darkMode]);
 
     const toggleDarkMode = () => setDarkMode((prevMode) => !prevMode);
+
+    // Setup flasher
+    const { messages } = usePage().props
+    useEffect(() => {
+        if (messages) {
+          flasher.render(messages)
+        }
+      }, [messages])
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex">

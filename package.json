@@ -40,6 +40,7 @@
         "@rollup/rollup-linux-x64-gnu": "4.28.0"
     },
     "dependencies": {
-        "@heroicons/react": "^2.2.0"
+        "@heroicons/react": "^2.2.0",
+        "@flasher/flasher": "file:vendor/php-flasher/flasher/Resources"
     }
 }

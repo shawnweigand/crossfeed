@@ -85,6 +85,7 @@ class FeedController extends Controller
             abort(403); // Prevent unauthorized updates
         }
         $feed->update($request->all());
+        flash()->success('Feed updated successfully!');
     }
 
     /**
