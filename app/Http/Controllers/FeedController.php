@@ -73,10 +73,19 @@ class FeedController extends Controller
      */
     public function update(Request $request, Feed $feed)
     {
+        $request->validate([
+            'name' => [ 'sometimes', 'required', 'string',
+                Rule::unique('feeds')->where(function ($query) use ($request) {
+                    return $query->where('user_id', $request->user()->id);
+                })
+            ],
+        ]);
+
         if ($feed->user_id !== Auth::user()->id) {
             abort(403); // Prevent unauthorized updates
         }
         $feed->update($request->all());
+        flash()->success('Feed updated successfully!');
     }
 
     /**

@@ -1,13 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { Head, Link, router } from '@inertiajs/react';
+import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import FollowingsTable from './Partials/FollowingsTable';
-import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel, Input, Popover, PopoverButton, PopoverPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import SearchChannelDialog from './Partials/SearchChannelDialog';
-import { useEffect, useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import useColor from '@/Utils/useColor';
 import ColorGrid from './Partials/ColorGrid';
 import axios from 'axios';
+import clsx from 'clsx';
 
 interface Props {
     feed: App.Data.FeedData
@@ -17,12 +18,17 @@ interface Props {
 export default function Page({ feed, channels }: Props) {
 
     const [ isOpen, setIsOpen ] = useState(false)
+
     const closeDialog = () => setIsOpen(false)
     const openDialog = () => setIsOpen(true)
     const [ iconColors, setIconColors ] = useState<{ bg: string, text: string }>(
         useColor({ bg: feed.icon_bg_color, text: feed.icon_text_color })
     )
     const [ selected, setSelected ] = useState<'bg' | 'text'>('bg')
+
+    const { data, setData, put, processing, errors, reset } = useForm({
+        name: feed.name
+    });
 
     const onSelect = (color: string) => {
         let colors = useColor({ bg: color, text: color })
@@ -34,6 +40,13 @@ export default function Page({ feed, channels }: Props) {
         } finally {
             router.reload({ only: ['feed'] })
         }
+    }
+
+    const onNameChange: FormEventHandler = (e) => {
+        e.preventDefault();
+        put(route('feed.update', { id: feed.id }), {
+            onFinish: () => router.reload({ only: ['feed'] }),
+        });
     }
 
     return (
@@ -104,7 +117,7 @@ export default function Page({ feed, channels }: Props) {
                                         className="w-32 h-32 rounded-full mx-auto mb-2"
                                     /> */}
                                     <div className={`${iconColors.bg} ${iconColors.text} flex size-32 rounded-full mx-auto mb-2 flex items-center justify-center text-5xl font-bold relative group`}>
-                                        {feed.name.charAt(0)}
+                                        {data.name.charAt(0)}
                                     </div>
                                     {/* Hover Overlay */}
                                     {/* <div className="absolute inset-0 rounded-full bg-gray-200/50 dark:bg-gray-700/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"></div> */}
@@ -116,7 +129,16 @@ export default function Page({ feed, channels }: Props) {
                                         </button>
                                     </div> */}
                                 </div>
-                                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">{feed.name}</p>
+                                <div className="flex mt-5 w-full">
+                                    <Input value={data.name} onChange={(e) => setData('name', e.target.value)} className={clsx(
+                                        'block rounded-lg border-none bg-gray-100 dark:bg-white/5 py-1.5 px-3 text-2xl text-black dark:text-white text-center',
+                                        'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+                                    )} />
+                                    <button onClick={onNameChange} className='cursor-pointer block rounded-lg border-none bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 py-1.5 px-3 ml-2'>
+                                        <CheckIcon className="w-6 h-6 text-green-500 h-full" />
+                                    </button>
+                                </div>
+                                { errors && errors.name && <div className='text-red-500 pt-3 text-sm'>{`${errors.name}`}</div> }
                             </div>
                             <div className='w-full place-self-start items-center'>
                                 <Disclosure>
