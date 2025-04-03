@@ -10,7 +10,7 @@ import flasher from '@flasher/flasher'
 
 export default function Authenticated({
     header,
-    children,
+    children
 }: PropsWithChildren<{ header?: ReactNode }>) {
     const user = usePage().props.auth.user;
 
@@ -43,9 +43,9 @@ export default function Authenticated({
     const { messages } = usePage().props
     useEffect(() => {
         if (messages) {
-          flasher.render(messages)
+            flasher.render(messages)
         }
-      }, [messages])
+    }, [messages])
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
