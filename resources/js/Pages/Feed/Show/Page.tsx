@@ -46,6 +46,7 @@ export default function Page({ feed, channels }: Props) {
         e.preventDefault();
         put(route('feed.update', { id: feed.id }), {
             onFinish: () => router.reload({ only: ['feed'] }),
+            preserveScroll: true
         });
     }
 
