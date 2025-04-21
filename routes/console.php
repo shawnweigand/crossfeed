@@ -50,4 +50,4 @@ Schedule::call(function () {
     // DB::table('channels')->where('id', 3)->update(['name' => Str::random()]);
     dump('Database called');
 
-})->name('supabase')->weekly()->mondays()->at('06:00');//->everyFifteenSeconds();
+})->name('supabase')->dailyAt('06:00');
