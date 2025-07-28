@@ -26,10 +26,13 @@ config:
   APP_NAME: "Crossfeed"
   APP_URL: https://crossfeed.live
   APP_ENV: production
-  SESSION_DRIVER: redis
+  # SESSION_DRIVER: redis
   DB_CONNECTION: pgsql
   DB_PORT: 5432
   DB_DATABASE: crossfeed
+  REDIS_CLIENT: phpredis
+  REDIS_PORT: 6379
+  QUEUE_CONNECTION: redis
   REDIS_CLIENT: phpredis
   REDIS_PORT: 6379
   # MAIL_MAILER: smtp
