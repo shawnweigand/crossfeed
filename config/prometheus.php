@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enabled' => true,
+    'enabled' => false,
 
     /*
      * The urls that will return metrics.
