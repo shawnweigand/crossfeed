@@ -1,5 +1,5 @@
 deployment:
-  replicas: 1
+  replicas: 0
   image:
     repository: shawnweigand/prod
     tag: crossfeed
