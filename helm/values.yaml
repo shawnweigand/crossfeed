@@ -5,6 +5,7 @@ deployment:
     tag: crossfeed
   registry:
     imagePullSecret: docker-registry-secret
+    
 serviceAccount:
   name: docker-registry-serviceaccount
   imagePullSecret: docker-registry-secret
@@ -21,6 +22,13 @@ issuer:
 
 pdb:
   minAvailable: 1
+
+horizon:
+  enabled: false
+  replicas: 1
+
+redis:
+  enabled: false
 
 config:
   APP_NAME: "Crossfeed"
