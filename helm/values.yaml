@@ -3,6 +3,8 @@ deployment:
   image:
     repository: shawnweigand/prod
     tag: crossfeed
+  probes:
+    enabled: false
   registry:
     imagePullSecret: docker-registry-secret
     
